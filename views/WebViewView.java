@@ -46,10 +46,15 @@ public class WebViewView implements Initializable {
     private WebView webView;
 
     WebEngine engine;
-
+    
+    //Just a simple mobile user agent
+    final private String USERAGENT = "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1";
+    final private String MOBILE_STOCK = "https://www.supremenewyork.com/mobile_stock.json";
+    
+    
     @FXML
     void handleStartButtonAction(ActionEvent event) {
-        engine.setUserAgent("Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1");
+        engine.setUserAgent(this.USERAGENT);
         engine.setJavaScriptEnabled(true);
 
         engine.load("https://www.google.com/");
@@ -57,7 +62,7 @@ public class WebViewView implements Initializable {
 
     @FXML
     void handleSupremeButtonAction(ActionEvent event) throws MalformedURLException, IOException, JSONException, InterruptedException {
-        URL url99 = new URL("https://www.supremenewyork.com/mobile_stock.json");
+        URL url99 = new URL(this.MOBILE_STOCK);
         HttpURLConnection con99 = (HttpURLConnection) url99.openConnection();
 
         //parse data from stringBuffer object using JSONObject

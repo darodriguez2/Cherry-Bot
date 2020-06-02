@@ -19,8 +19,6 @@ public class StartApplication extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        System.out.println("Test  = "+ getClass().getResource("WebViewFXML.fxml"));
-       
         Parent root;
         root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/WebViewFXML.fxml"));
         
