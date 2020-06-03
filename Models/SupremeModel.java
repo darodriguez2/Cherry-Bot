@@ -20,14 +20,14 @@ public class SupremeModel {
     private String itemID;
     private String styleID;
     private String sizeID;
+    private String supremeSessCookie;
     private boolean result = false;
 
     public boolean searchForItem(String _itemKeyword, String _itemType) throws InterruptedException {
         String itemID = "NOT FOUND";
         int reconnectCount = 0;
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
-        System.out.println("Searching for item at: " + dtf.format(now));
+        System.out.println("Getting stock and searching for item. Time: " + dtf.format(LocalDateTime.now()));
         /**
          * This loop will execute until the item is found. Iterates (1/sec) If
          * the item is never found, it will loop 600 times. (about 10 mins) The
@@ -36,13 +36,12 @@ public class SupremeModel {
          * drop time.
          */
         do {
-            System.out.println("marker1");
             JSONArray jsonArr = this.adapter.getStock(_itemType);
             try {
                 for (int i = 0; i < jsonArr.length(); i++) {
                     if (jsonArr.getJSONObject(i).getString("name").contains(_itemKeyword)) {
                         itemID = jsonArr.getJSONObject(i).get("id").toString();
-                        System.out.println("Item found. Item ID: " + itemID);
+                        System.out.println("Item found. Item ID: " + itemID + ". Time: " + dtf.format(LocalDateTime.now()));
                         this.itemID = itemID;
                         this.result = true;
                         break;
@@ -53,7 +52,7 @@ public class SupremeModel {
             }
             if (itemID.equals("NOT FOUND")) {
                 reconnectCount++;
-                System.out.println("Item not found. Reconnect count: " + reconnectCount);
+                System.out.println("Item not found. Attempting to reconnect. Reconnect count: " + reconnectCount + ". Time: " + dtf.format(LocalDateTime.now()));
                 Thread.sleep((long) 1000);
             }
             if (reconnectCount > 600) {
@@ -61,37 +60,29 @@ public class SupremeModel {
             }
 
         } while (itemID.equals("NOT FOUND"));
-
-        now = LocalDateTime.now();
-        System.out.println("Item found at: " + dtf.format(now));
-
         return result;
     }
 
-    public Map<String, String> sizeAndStyleIDAccessory(String _itemID) throws JSONException {
-        Map<String, String> map = new HashMap<>();
+    public boolean sizeAndStyleIDAccessory() throws JSONException {
+        this.result = false;
+
         String styleID = "";
         String sizeID = "";
-        JSONArray jsonArr = adapter.getItemInfo(_itemID);
+        JSONArray jsonArr = this.adapter.getItemInfo(this.itemID);
 
         //finds styleID and sizeID in json array
-        styleID = jsonArr.getJSONObject(0).get("id").toString();
+        this.styleID = jsonArr.getJSONObject(0).get("id").toString();
         JSONArray jsonArr2 = jsonArr.getJSONObject(0).getJSONArray("sizes");
-        sizeID = jsonArr2.getJSONObject(0).get("id").toString();
-        System.out.println("Style ID: " + styleID);
-        System.out.println("Size ID: " + sizeID);
-
-        map.put("sizeID", sizeID);
-        map.put("styleID", styleID);
-        return map;
+        this.sizeID = jsonArr2.getJSONObject(0).get("id").toString();
+        System.out.println("Style ID: " + this.styleID);
+        System.out.println("Size ID: " + this.sizeID);
+        
+        return this.result;
     }
 
     public boolean sizeAndStyleIDClothes(String _color) throws JSONException {
         this.result = false;
-        Map<String, String> map = new HashMap<>();
-//        String styleID = "";
-//        String sizeID = "";
-        JSONArray jsonArr = adapter.getItemInfo(this.itemID);
+        JSONArray jsonArr = this.adapter.getItemInfo(this.itemID);
 
         /**
          * Finds styleID and sizeID in json array Default size is medium given
@@ -105,8 +96,6 @@ public class SupremeModel {
                 System.out.println("Style ID: " + this.styleID);
                 System.out.println("Size ID: " + this.sizeID);
                 this.result = true;
-                map.put("sizeID", sizeID);
-                map.put("styleID", styleID);
                 return this.result;
             }
         }
@@ -114,11 +103,26 @@ public class SupremeModel {
         return this.result;
     }
 
-    public Map<String, String> requestAddToCart(String _itemID, String _styleID, String _sizeID) {
-        Map<String, String> result = adapter.addToCart(_itemID, _styleID, _sizeID);
-        return result;
+    public boolean requestAddToCart() throws JSONException {
+        Map<String, String> result = this.adapter.addToCart(this.itemID, this.styleID, this.sizeID);
+        JSONObject cartResponse = new JSONObject(result.get("response"));
+        String success = cartResponse.getString("success");
+        if(success.equals("false")) 
+            return false;
+        else if(success.equals("true")){
+            this.supremeSessCookie = result.get("supremeSessCookie");
+            return true;
+        }  
+        else {
+            System.out.println("Unknown response in requestAddToCart method in model. Response: " + success);
+            return false;
+        }       
     }
 
+    
+    
+    
+    ////////////////////////////////GETTERS/SETTERS////////////////////////////////////////////////////////////
     public String getItemID() {
         return this.itemID;
     }
@@ -127,5 +131,8 @@ public class SupremeModel {
     }
     public String getStyleID() {
         return this.styleID;
+    }
+    public String getSupremeSessCookie() {
+        return this.supremeSessCookie;
     }
 }
