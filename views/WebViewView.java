@@ -1,39 +1,25 @@
 package views;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.StringJoiner;
 import javafx.concurrent.Worker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.html.HTMLDocument;
 import controllers.WebViewController;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
 
 public class WebViewView implements Initializable {
 
@@ -45,6 +31,11 @@ public class WebViewView implements Initializable {
 
     @FXML
     private WebView webView;
+    
+    @FXML
+    private AnchorPane mainAnchorPane;
+    @FXML
+    private AnchorPane clearStrip;
 
     private WebEngine engine;
     private final WebViewController controller = new WebViewController();
@@ -83,7 +74,7 @@ public class WebViewView implements Initializable {
         engine.setJavaScriptEnabled(true);
         
         URI uri = URI.create("https://www.supremenewyork.com/checkout");
-        Map<String, List<String>> headers = new LinkedHashMap<String, List<String>>();
+        Map<String, List<String>> headers = new LinkedHashMap<>();
         headers.put("Set-Cookie", Arrays.asList(this.supremeSessCookie));
         java.net.CookieHandler.getDefault().put(uri, headers);
         engine.load("https://www.supremenewyork.com/checkout");
@@ -109,6 +100,8 @@ public class WebViewView implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        this.mainAnchorPane.setBackground(Background.EMPTY);
+        this.clearStrip.setOpacity(0.7);
         System.setProperty("sun.net.http.allowRestrictedHeaders", "true");
         this.engine = this.webView.getEngine();
         engine.setUserAgent("Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1");

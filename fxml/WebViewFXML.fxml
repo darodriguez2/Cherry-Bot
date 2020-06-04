@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.validation.*?>
+<?import com.jfoenix.controls.*?>
 <?import javafx.scene.web.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -7,10 +12,32 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.WebViewView">
+<AnchorPane id="AnchorPane" fx:id="mainAnchorPane" prefHeight="533.0" prefWidth="704.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.WebViewView">
     <children>
-        <Button fx:id="supremeButton" layoutX="326.0" layoutY="549.0" onAction="#handleSupremeButtonAction" text="Supreme" />
-      <WebView fx:id="webView" layoutX="14.0" layoutY="20.0" prefHeight="530.0" prefWidth="572.0" />
-      <Button fx:id="startButton" layoutX="164.0" layoutY="549.0" onAction="#handleStartButtonAction" text="Begin" />
+      <AnchorPane id="AnchorPane" prefHeight="120.0" prefWidth="877.0" style="-fx-background-color: #531515;">
+         <children>
+            <Label layoutX="70.0" layoutY="38.0" prefHeight="63.0" prefWidth="246.0" style="-fx-text-fill: #ff8989; -fx-text-stroke: #000000; -fx-text-storke-width: 2px;" text="Cherry" textFill="#ff8989">
+               <font>
+                  <Font name="Corbel Bold" size="48.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane id="AnchorPane" layoutY="160.0" prefHeight="473.0" prefWidth="877.0" style="-fx-background-color: #531515;">
+         <children>
+            <WebView fx:id="webView" layoutX="14.0" layoutY="14.0" prefHeight="362.0" prefWidth="479.0" />
+            <JFXButton fx:id="supremeButton" layoutX="173.0" layoutY="389.0" onAction="#handleSupremeButtonAction" prefHeight="36.0" prefWidth="120.0" ripplerFill="#9a2121" style="-fx-background-color: #ff8989; -fx-background-radius: 5em; -fx-border-radius: 5em;" text="Supreme">
+               <font>
+                  <Font name="Corbel Bold" size="12.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="startButton" layoutX="42.0" layoutY="389.0" onAction="#handleStartButtonAction" prefHeight="36.0" prefWidth="120.0" ripplerFill="#9a2121" style="-fx-background-color: #ff8989; -fx-background-radius: 5em; -fx-border-radius: 5em;" text="Gmail">
+               <font>
+                  <Font name="Corbel Bold" size="12.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="clearStrip" layoutY="120.0" prefHeight="42.0" prefWidth="877.0" style="-fx-background-color: #ff8989;" />
     </children>
 </AnchorPane>
