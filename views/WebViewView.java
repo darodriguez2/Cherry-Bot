@@ -18,8 +18,11 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import org.json.JSONException;
 import controllers.WebViewController;
+import javafx.application.Platform;
+import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
+import javafx.stage.Stage;
 
 public class WebViewView implements Initializable {
 
@@ -31,7 +34,7 @@ public class WebViewView implements Initializable {
 
     @FXML
     private WebView webView;
-    
+
     @FXML
     private AnchorPane mainAnchorPane;
     @FXML
@@ -39,16 +42,14 @@ public class WebViewView implements Initializable {
 
     private WebEngine engine;
     private final WebViewController controller = new WebViewController();
-    
+
     //Just a simple mobile user agent
     private final String USERAGENT = "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1";
     private final String itemKeyword = "Silk";
     private final String itemType = "Shirts";
     private final String itemColor = "Peach";
     private String supremeSessCookie = "";
-            
-    
-    
+
     @FXML
     void handleStartButtonAction(ActionEvent event) {
         engine.setUserAgent(this.USERAGENT);
@@ -59,20 +60,20 @@ public class WebViewView implements Initializable {
 
     @FXML
     void handleSupremeButtonAction(ActionEvent event) throws MalformedURLException, IOException, JSONException, InterruptedException {
-       
+
         this.controller.sendSearchItemRequest(this.itemKeyword, this.itemType);
         this.controller.sendClothesRequest(this.itemColor);
         boolean success = this.controller.sendAddToCartRequest();
-        if(!success) {
+        if (!success) {
             do {
                 success = this.controller.sendAddToCartRequest();
-            }while(!success);    
+            } while (!success);
         }
         this.supremeSessCookie = this.controller.getSupremeSessCookie();
 
         engine.setUserAgent("Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1");
         engine.setJavaScriptEnabled(true);
-        
+
         URI uri = URI.create("https://www.supremenewyork.com/checkout");
         Map<String, List<String>> headers = new LinkedHashMap<>();
         headers.put("Set-Cookie", Arrays.asList(this.supremeSessCookie));
@@ -98,10 +99,19 @@ public class WebViewView implements Initializable {
         });
     }
 
+    @FXML
+    public void closeApplication(ActionEvent _event) {
+        Stage stage = (Stage) ((Node) _event.getSource()).getScene().getWindow();
+        stage.close();
+        stage.setOnCloseRequest(e -> {
+            Platform.exit();
+            System.exit(0);
+        });
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.mainAnchorPane.setBackground(Background.EMPTY);
-        this.clearStrip.setOpacity(0.7);
         System.setProperty("sun.net.http.allowRestrictedHeaders", "true");
         this.engine = this.webView.getEngine();
         engine.setUserAgent("Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1");
