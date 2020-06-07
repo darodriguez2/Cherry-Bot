@@ -51,15 +51,23 @@ public class WebViewView implements Initializable {
     private String supremeSessCookie = "";
 
     @FXML
-    void handleStartButtonAction(ActionEvent event) {
+    void handleGoogleButtonAction() {
         engine.setUserAgent(this.USERAGENT);
         engine.setJavaScriptEnabled(true);
 
-        engine.load("https://www.google.com/");
+        engine.load("https://accounts.google.com/");
+    }
+    
+    @FXML
+    void handleYoutubeButtonAction() {
+        engine.setUserAgent(this.USERAGENT);
+        engine.setJavaScriptEnabled(true);
+
+        engine.load("https://www.youtube.com/");
     }
 
     @FXML
-    void handleSupremeButtonAction(ActionEvent event) throws MalformedURLException, IOException, JSONException, InterruptedException {
+    void handleSupremeButtonAction() throws MalformedURLException, IOException, JSONException, InterruptedException {
 
         this.controller.sendSearchItemRequest(this.itemKeyword, this.itemType);
         this.controller.sendClothesRequest(this.itemColor);
@@ -100,8 +108,8 @@ public class WebViewView implements Initializable {
     }
 
     @FXML
-    public void closeApplication(ActionEvent _event) {
-        Stage stage = (Stage) ((Node) _event.getSource()).getScene().getWindow();
+    public void closeApplication() {
+        Stage stage = (Stage)this.mainAnchorPane.getScene().getWindow();
         stage.close();
         stage.setOnCloseRequest(e -> {
             Platform.exit();

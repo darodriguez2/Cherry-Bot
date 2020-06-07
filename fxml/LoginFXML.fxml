@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.web.WebView?>
+
+
+<AnchorPane id="AnchorPane" fx:id="mainAnchorPane" prefHeight="1000.0" prefWidth="1400.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="views.WebViewView">
+   <children>
+      <AnchorPane prefHeight="136.0" prefWidth="1579.0" style="-fx-background-color: #4F8FC0;">
+         <children>
+            <Label layoutX="678.0" layoutY="13.0" text="Cherry" textFill="#ffffe3">
+               <font>
+                  <Font name="System Bold" size="72.0" />
+               </font>
+            </Label>
+            <FontAwesomeIconView fill="#ffffe3" glyphName="USER" layoutX="1302.0" layoutY="90.0" size="70" />
+            <AnchorPane layoutX="1418.0" layoutY="-5.0" prefHeight="142.0" prefWidth="161.0">
+               <children>
+                  <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="36.0" layoutY="30.0" onAction="#closeApplication" ripplerFill="#ffffe3" style="-fx-background-color: #42484d; -fx-background-radius: 5em; -fx-border-radius: 5em; -fx-max-height: 75px; -fx-max-width: 75px; -fx-min-height: 75px; -fx-min-width: 75px;" textFill="#42484d">
+                     <graphic>
+                        <FontAwesomeIconView fill="#ffffe3" glyphName="TIMES" onMouseClicked="#closeApplication" size="50" />
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutY="135.0" prefHeight="865.0" prefWidth="1579.0" style="-fx-background-color: #26648E;">
+         <children>
+            <WebView fx:id="webView" layoutX="43.0" layoutY="26.0" prefHeight="634.0" prefWidth="915.0" />
+            <AnchorPane layoutX="1016.0" layoutY="26.0" prefHeight="457.0" prefWidth="532.0" style="-fx-background-color: #42484d; -fx-background-radius: 5EM; -fx-border-radius: 5EM;">
+               <children>
+                  <Label layoutX="170.0" layoutY="14.0" text="Task Status" textFill="#63e1c1">
+                     <font>
+                        <Font name="System Bold" size="36.0" />
+                     </font>
+                  </Label>
+                  <HBox layoutX="37.0" layoutY="124.0" prefHeight="305.0" prefWidth="458.0">
+                     <children>
+                        <VBox prefHeight="482.0" prefWidth="235.0">
+                           <children>
+                              <HBox prefHeight="76.0" prefWidth="282.0">
+                                 <children>
+                                    <Label text="Item Found" textFill="#63e1c1">
+                                       <font>
+                                          <Font name="System Bold" size="24.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="76.0" prefWidth="282.0">
+                                 <children>
+                                    <Label text="Add to Cart" textFill="#63e1c1">
+                                       <font>
+                                          <Font name="System Bold" size="24.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="76.0" prefWidth="282.0">
+                                 <children>
+                                    <Label text="Autofill" textFill="#63e1c1">
+                                       <font>
+                                          <Font name="System Bold" size="24.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="76.0" prefWidth="282.0">
+                                 <children>
+                                    <Label text="reCaptcha" textFill="#63e1c1">
+                                       <font>
+                                          <Font name="System Bold" size="24.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="482.0" prefWidth="256.0">
+                           <children>
+                              <HBox prefHeight="76.0" prefWidth="282.0">
+                                 <children>
+                                    <VBox prefHeight="76.0" prefWidth="60.0" />
+                                    <VBox prefHeight="76.0" prefWidth="60.0">
+                                       <children>
+                                          <FontAwesomeIconView fill="#00ff1a" glyphName="CHECK" size="25" />
+                                       </children>
+                                    </VBox>
+                                    <VBox prefHeight="76.0" prefWidth="60.0">
+                                       <children>
+                                          <FontAwesomeIconView fill="#ffe800" glyphName="SPINNER" size="25" />
+                                       </children>
+                                    </VBox>
+                                    <VBox prefHeight="76.0" prefWidth="60.0">
+                                       <children>
+                                          <FontAwesomeIconView fill="RED" glyphName="TIMES" size="25" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="76.0" prefWidth="282.0">
+                                 <children>
+                                    <VBox prefHeight="76.0" prefWidth="60.0" />
+                                    <VBox prefHeight="76.0" prefWidth="60.0">
+                                       <children>
+                                          <FontAwesomeIconView fill="#00ff1a" glyphName="CHECK" size="25" />
+                                       </children>
+                                    </VBox>
+                                    <VBox prefHeight="76.0" prefWidth="60.0">
+                                       <children>
+                                          <FontAwesomeIconView fill="#ffe800" glyphName="SPINNER" size="25" />
+                                       </children>
+                                    </VBox>
+                                    <VBox prefHeight="76.0" prefWidth="60.0">
+                                       <children>
+                                          <FontAwesomeIconView fill="RED" glyphName="TIMES" size="25" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="76.0" prefWidth="282.0">
+                                 <children>
+                                    <VBox prefHeight="76.0" prefWidth="60.0" />
+                                    <VBox prefHeight="76.0" prefWidth="60.0">
+                                       <children>
+                                          <FontAwesomeIconView fill="#00ff1a" glyphName="CHECK" size="25" />
+                                       </children>
+                                    </VBox>
+                                    <VBox prefHeight="76.0" prefWidth="60.0">
+                                       <children>
+                                          <FontAwesomeIconView fill="#ffe800" glyphName="SPINNER" size="25" />
+                                       </children>
+                                    </VBox>
+                                    <VBox prefHeight="76.0" prefWidth="60.0">
+                                       <children>
+                                          <FontAwesomeIconView fill="RED" glyphName="TIMES" size="25" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="76.0" prefWidth="282.0">
+                                 <children>
+                                    <VBox prefHeight="76.0" prefWidth="60.0" />
+                                    <VBox prefHeight="76.0" prefWidth="60.0">
+                                       <children>
+                                          <FontAwesomeIconView fill="#00ff1a" glyphName="CHECK" size="25" />
+                                       </children>
+                                    </VBox>
+                                    <VBox prefHeight="76.0" prefWidth="60.0">
+                                       <children>
+                                          <FontAwesomeIconView fill="#ffe800" glyphName="SPINNER" size="25" />
+                                       </children>
+                                    </VBox>
+                                    <VBox prefHeight="76.0" prefWidth="60.0">
+                                       <children>
+                                          <FontAwesomeIconView fill="RED" glyphName="TIMES" size="25" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="1016.0" layoutY="499.0" prefHeight="322.0" prefWidth="532.0" style="-fx-background-color: #42484d; -fx-background-radius: 5em; -fx-border-radius: 5em;">
+               <children>
+                  <Label layoutX="191.0" layoutY="14.0" text="Task Log" textFill="#63e1c1">
+                     <font>
+                        <Font name="System Bold" size="36.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <HBox layoutX="109.0" layoutY="707.0" prefHeight="60.0" prefWidth="783.0">
+               <children>
+                  <AnchorPane prefHeight="60.0" prefWidth="150.0" style="-fx-background-color: #42484d; -fx-background-radius: 5em; -fx-border-radius: 5em;">
+                     <children>
+                        <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="1.0" layoutY="-2.0" onAction="#handleGoogleButtonAction" prefHeight="60.0" prefWidth="150.0" ripplerFill="#ffffe3" style="-fx-background-color: #42484d; -fx-background-radius: 5em; -fx-border-radius: 5em;" textFill="#42484d" />
+                        <FontAwesomeIconView fill="#ffffe3" glyphName="GOOGLE" layoutX="53.0" layoutY="47.0" onMouseClicked="#handleGoogleButtonAction" size="50" wrappingWidth="44.0000068731606" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="60.0" prefWidth="87.0" />
+                  <AnchorPane prefHeight="60.0" prefWidth="150.0" style="-fx-background-color: #42484d; -fx-background-radius: 5em; -fx-border-radius: 5em;">
+                     <children>
+                        <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="1.0" layoutY="-2.0" onAction="#handleYoutubeButtonAction" prefHeight="60.0" prefWidth="150.0" ripplerFill="#ffffe3" style="-fx-background-color: #42484d; -fx-background-radius: 5em; -fx-border-radius: 5em;" textFill="#42484d" />
+                        <FontAwesomeIconView fill="#ffffe3" glyphName="YOUTUBE" layoutX="54.0" layoutY="45.0" onMouseClicked="#handleYoutubeButtonAction" size="50" text="" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="60.0" prefWidth="87.0" />
+                  <AnchorPane prefHeight="60.0" prefWidth="150.0" style="-fx-background-color: #42484d; -fx-background-radius: 5em; -fx-border-radius: 5em;">
+                     <children>
+                        <JFXButton buttonType="RAISED" contentDisplay="TEXT_ONLY" layoutX="1.0" layoutY="-2.0" onAction="#handleSupremeButtonAction" prefHeight="60.0" prefWidth="150.0" ripplerFill="#ffffe3" style="-fx-background-color: #42484d; -fx-background-radius: 5em; -fx-border-radius: 5em;" text="Supreme" textFill="#ffffe3">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="60.0" prefWidth="87.0" />
+                  <AnchorPane prefHeight="60.0" prefWidth="150.0" style="-fx-background-color: #42484d; -fx-background-radius: 5em; -fx-border-radius: 5em;">
+                     <children>
+                        <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="1.0" layoutY="-2.0" prefHeight="60.0" prefWidth="150.0" ripplerFill="#ffffe3" style="-fx-background-color: #42484d; -fx-background-radius: 5em; -fx-border-radius: 5em;" textAlignment="JUSTIFY" textFill="#42484d">
+                           <graphic>
+                              <FontAwesomeIconView fill="#ffffe3" glyphName="REFRESH" size="50" />
+                           </graphic>
+                        </JFXButton>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
