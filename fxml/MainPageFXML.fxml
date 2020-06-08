@@ -9,8 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.web.WebView?>
 
-
-<AnchorPane id="AnchorPane" fx:id="mainAnchorPane" prefHeight="1000.0" prefWidth="1400.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="views.WebViewView">
+<AnchorPane id="AnchorPane" fx:id="mainAnchorPane" prefHeight="1000.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.WebViewView">
    <children>
       <AnchorPane prefHeight="136.0" prefWidth="1579.0" style="-fx-background-color: #4F8FC0;">
          <children>
@@ -19,7 +18,6 @@
                   <Font name="System Bold" size="72.0" />
                </font>
             </Label>
-            <FontAwesomeIconView fill="#ffffe3" glyphName="USER" layoutX="1302.0" layoutY="90.0" size="70" />
             <AnchorPane layoutX="1418.0" layoutY="-5.0" prefHeight="142.0" prefWidth="161.0">
                <children>
                   <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="36.0" layoutY="30.0" onAction="#closeApplication" ripplerFill="#ffffe3" style="-fx-background-color: #42484d; -fx-background-radius: 5em; -fx-border-radius: 5em; -fx-max-height: 75px; -fx-max-width: 75px; -fx-min-height: 75px; -fx-min-width: 75px;" textFill="#42484d">
@@ -29,6 +27,11 @@
                   </JFXButton>
                </children>
             </AnchorPane>
+            <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="1315.0" layoutY="24.0" onAction="#switchToBillingInfo" ripplerFill="#ffffe3" style="-fx-background-color: #42484d; -fx-background-radius: 5em; -fx-border-radius: 5em; -fx-max-height: 75px; -fx-max-width: 75px; -fx-min-height: 75px; -fx-min-width: 75px;" textFill="#42484d">
+               <graphic>
+                  <FontAwesomeIconView fill="#ffffe3" glyphName="USER" size="50" />
+               </graphic>
+            </JFXButton>
          </children>
       </AnchorPane>
       <AnchorPane layoutY="135.0" prefHeight="865.0" prefWidth="1579.0" style="-fx-background-color: #26648E;">

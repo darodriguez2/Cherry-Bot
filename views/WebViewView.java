@@ -19,7 +19,12 @@ import javafx.scene.web.WebView;
 import org.json.JSONException;
 import controllers.WebViewController;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.stage.Stage;
@@ -49,6 +54,8 @@ public class WebViewView implements Initializable {
     private final String itemType = "Shirts";
     private final String itemColor = "Peach";
     private String supremeSessCookie = "";
+    private double xOffset = 0;
+    private double yOffset = 0;
 
     @FXML
     void handleGoogleButtonAction() {
@@ -57,7 +64,7 @@ public class WebViewView implements Initializable {
 
         engine.load("https://accounts.google.com/");
     }
-    
+
     @FXML
     void handleYoutubeButtonAction() {
         engine.setUserAgent(this.USERAGENT);
@@ -109,12 +116,46 @@ public class WebViewView implements Initializable {
 
     @FXML
     public void closeApplication() {
-        Stage stage = (Stage)this.mainAnchorPane.getScene().getWindow();
+        Stage stage = (Stage) this.mainAnchorPane.getScene().getWindow();
         stage.close();
         stage.setOnCloseRequest(e -> {
             Platform.exit();
             System.exit(0);
         });
+    }
+
+    @FXML
+    public void switchToBillingInfo(ActionEvent _event) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/UserCredentialsFXML.fxml"));
+        Parent parentUsingFXML = loader.load();
+        Scene sceneToSwitchTo = new Scene(parentUsingFXML);
+        Stage referenceStage = (Stage) ((Node) _event.getSource()).getScene().getWindow();
+        parentUsingFXML.setOnMousePressed(
+                new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event
+            ) {
+                xOffset = referenceStage.getX() - event.getScreenX();
+                yOffset = referenceStage.getY() - event.getScreenY();
+            }
+        }
+        );
+
+        parentUsingFXML.setOnMouseDragged(
+                new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event
+            ) {
+                referenceStage.setX(event.getScreenX() + xOffset);
+                referenceStage.setY(event.getScreenY() + yOffset);
+            }
+        }
+        );
+
+        referenceStage.setScene(sceneToSwitchTo);
+
+        referenceStage.show();
     }
 
     @Override
