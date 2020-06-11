@@ -44,9 +44,9 @@
                         <Font name="System Bold" size="36.0" />
                      </font>
                   </Label>
-                  <HBox layoutX="37.0" layoutY="124.0" prefHeight="305.0" prefWidth="458.0">
+                  <HBox layoutX="83.0" layoutY="126.0" prefHeight="305.0" prefWidth="367.0">
                      <children>
-                        <VBox prefHeight="482.0" prefWidth="235.0">
+                        <VBox prefHeight="305.0" prefWidth="157.0">
                            <children>
                               <HBox prefHeight="76.0" prefWidth="282.0">
                                  <children>

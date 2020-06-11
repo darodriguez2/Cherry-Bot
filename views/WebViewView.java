@@ -18,6 +18,7 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import org.json.JSONException;
 import controllers.WebViewController;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -30,20 +31,15 @@ import javafx.scene.layout.Background;
 import javafx.stage.Stage;
 
 public class WebViewView implements Initializable {
-
-    @FXML
-    private Button startButton;
-
-    @FXML
-    private Button supremeButton;
-
     @FXML
     private WebView webView;
 
     @FXML
     private AnchorPane mainAnchorPane;
+    
     @FXML
-    private AnchorPane clearStrip;
+    private FontAwesomeIconView itemFoundLoad;
+    
 
     private WebEngine engine;
     private final WebViewController controller = new WebViewController();
@@ -75,7 +71,8 @@ public class WebViewView implements Initializable {
 
     @FXML
     void handleSupremeButtonAction() throws MalformedURLException, IOException, JSONException, InterruptedException {
-
+       this.itemFoundLoad.setVisible(false);
+       this.itemFoundLoad.setGlyphName(itemType);
         this.controller.sendSearchItemRequest(this.itemKeyword, this.itemType);
         this.controller.sendClothesRequest(this.itemColor);
         boolean success = this.controller.sendAddToCartRequest();

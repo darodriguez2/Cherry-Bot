@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" fx:id="mainAnchorPane" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: #3d0000;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="testing.UI.DriverView">
+   <children>
+      <AnchorPane layoutY="-6.0" prefHeight="78.0" prefWidth="1200.0" style="-fx-background-color: #404040;">
+         <children>
+            <Label layoutX="81.0" layoutY="23.0" text="Cherry " textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Semibold" size="27.0" />
+               </font>
+            </Label>
+            <HBox layoutX="685.0" layoutY="11.0" prefHeight="63.0" prefWidth="515.0">
+               <children>
+                  <JFXButton buttonType="RAISED" contentDisplay="RIGHT" prefHeight="70.0" prefWidth="164.0" ripplerFill="#ffa2a2" style="-fx-background-color: #404040;" text="Profiles" textFill="WHITE">
+                     <font>
+                        <Font name="Segoe UI Semibold" size="16.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="USER" size="16" />
+                     </graphic>
+                  </JFXButton>
+                  <AnchorPane prefHeight="200.0" prefWidth="10.0" />
+                  <JFXButton buttonType="RAISED" contentDisplay="RIGHT" prefHeight="70.0" prefWidth="164.0" ripplerFill="#ffa2a2" style="-fx-background-color: #404040;" text="Tasks" textFill="WHITE">
+                     <font>
+                        <Font name="Segoe UI Semibold" size="16.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="#eeeeee" glyphName="TASKS" size="16" />
+                     </graphic>
+                  </JFXButton>
+                  <AnchorPane prefHeight="200.0" prefWidth="10.0" />
+                  <JFXButton buttonType="RAISED" contentDisplay="RIGHT" onAction="#closeApplication" prefHeight="70.0" prefWidth="164.0" ripplerFill="#ffa2a2" style="-fx-background-color: #404040;" text="Exit" textFill="WHITE">
+                     <font>
+                        <Font name="Segoe UI Semibold" size="16.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="#eeeeee" glyphName="TIMES" size="16" />
+                     </graphic>
+                  </JFXButton>
+                  <AnchorPane prefHeight="200.0" prefWidth="10.0" />
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="38.0" layoutY="89.0" prefHeight="459.0" prefWidth="1140.0" style="-fx-background-color: #500000;">
+         <children>
+            <JFXTreeTableView fx:id="taskView" layoutX="15.0" layoutY="18.0" prefHeight="423.0" prefWidth="1111.0">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </JFXTreeTableView>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="782.0" layoutY="548.0" prefHeight="55.0" prefWidth="396.0" style="-fx-background-color: #500000;">
+         <children>
+            <JFXButton buttonType="RAISED" layoutX="14.0" layoutY="15.0" style="-fx-background-color: #404040;" text=" Start" textFill="#f8f8f8">
+               <font>
+                  <Font name="Segoe UI Semibold" size="14.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIconView fill="#f8f8f8" glyphName="PLAY" size="14" />
+               </graphic>
+            </JFXButton>
+            <JFXButton buttonType="RAISED" layoutX="110.0" layoutY="15.0" style="-fx-background-color: #404040;" text=" Stop" textFill="#f8f8f8">
+               <font>
+                  <Font name="Segoe UI Semibold" size="14.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="STOP" size="14" />
+               </graphic>
+            </JFXButton>
+            <JFXButton buttonType="RAISED" layoutX="198.0" layoutY="15.0" onAction="#addTasks" style="-fx-background-color: #404040;" text=" Add" textFill="#f8f8f8">
+               <font>
+                  <Font name="Segoe UI Semibold" size="14.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="14" />
+               </graphic>
+            </JFXButton>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
