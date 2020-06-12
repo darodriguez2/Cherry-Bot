@@ -46,9 +46,9 @@ public class WebViewView implements Initializable {
 
     //Just a simple mobile user agent
     private final String USERAGENT = "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1";
-    private final String itemKeyword = "Silk";
-    private final String itemType = "Shirts";
-    private final String itemColor = "Peach";
+    private final String itemKeyword = "Small Box Tee";
+    private final String itemType = "new";
+    private final String itemColor = "White";
     private String supremeSessCookie = "";
     private double xOffset = 0;
     private double yOffset = 0;
@@ -71,8 +71,6 @@ public class WebViewView implements Initializable {
 
     @FXML
     void handleSupremeButtonAction() throws MalformedURLException, IOException, JSONException, InterruptedException {
-       this.itemFoundLoad.setVisible(false);
-       this.itemFoundLoad.setGlyphName(itemType);
         this.controller.sendSearchItemRequest(this.itemKeyword, this.itemType);
         this.controller.sendClothesRequest(this.itemColor);
         boolean success = this.controller.sendAddToCartRequest();

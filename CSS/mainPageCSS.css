@@ -10,29 +10,39 @@ and open the template in the editor.
 
 .tree-table-view {
     -fx-background-color: transparent;
-    
+
 }
 
 .tree-table-cell {
     -fx-alignment: center ;
     -fx-text-fill:#ffffff;
     -fx-font: 14px "Segoe UI Semibold";
-    -fx-border-width: 0 0 5 0;
-    -fx-border-color: white,transparent, white ,transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #404040,transparent, #404040 ,transparent;
 }
 
-.tree-table-row-cell:odd {
-    -fx-background-color:   #404040;
+.tree-table-view .column-header {
+    -fx-border-color: #404040, #404040, #404040, #404040;
+
+}
+
+.tree-table-view .column-header {
+    -fx-text-fill: #ffffff;
+    -fx-padding: 16 0 16 0;
+}
+
+.tree-table-row-cell {
+    -fx-background-color: #500000;
     -fx-background-inserts: 0, 0 0 1 0;
-    
-     
+
+
 }
 
-
+/*
 .tree-table-row-cell:even {
     -fx-background-color:   #404040;
     -fx-background-inserts: 0, 0 0 1 0;
     -fx-padding: 0.0em;
    
-}
+}*/
 
