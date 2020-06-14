@@ -13,7 +13,6 @@ import javafx.concurrent.Worker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import org.json.JSONException;
@@ -101,9 +100,7 @@ public class WebViewView implements Initializable {
                         + "document.getElementById('rnsnckrn').value = '1234 1234 4444 3333';"
                         + "document.getElementById('orcer').value = '006';"
                         + "document.getElementById('credit_card_month').value = '08';"
-                        + "document.getElementById('credit_card_year').value = '2024';"
-                        + "document.getElementById('order_terms').click();"
-                        + "document.getElementsByName('commit')[0].click();");
+                        + "document.getElementById('credit_card_year').value = '2024';");
 
             }
         });

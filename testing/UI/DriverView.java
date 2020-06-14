@@ -6,6 +6,7 @@
 package testing.UI;
 
 import com.jfoenix.controls.JFXTreeTableColumn;
+import com.jfoenix.controls.JFXTreeTableRow;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
@@ -16,10 +17,14 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.TreeTableRow;
+import javafx.scene.control.TreeTableView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -41,22 +46,24 @@ public class DriverView implements Initializable{
     @FXML
     private AnchorPane mainAnchorPane;
     
+
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         
         
         JFXTreeTableColumn<Task, String> site = new JFXTreeTableColumn<>("Site");
-        
-        site.setPrefWidth(150);
+        site.setPrefWidth(taskView.getPrefWidth()/4);
         site.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Task, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<Task, String> param) {
                 return param.getValue().getValue().site;
             }
         });
+      
         
         JFXTreeTableColumn<Task, String> profile = new JFXTreeTableColumn<>("Profile");
-        site.setPrefWidth(150);
+        profile.setPrefWidth(taskView.getPrefWidth()/4);
         profile.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Task, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<Task, String> param) {
@@ -65,7 +72,7 @@ public class DriverView implements Initializable{
         });
         
         JFXTreeTableColumn<Task, String> item = new JFXTreeTableColumn<>("Item");
-        site.setPrefWidth(350);
+        item.setPrefWidth(taskView.getPrefWidth()/4);
         item.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Task, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<Task, String> param) {
@@ -73,19 +80,46 @@ public class DriverView implements Initializable{
             }
         });
         
+        JFXTreeTableColumn<Task, String> status = new JFXTreeTableColumn<>("Status");
+        status.setPrefWidth(taskView.getPrefWidth()/4);
+        status.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Task, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<Task, String> param) {
+                return param.getValue().getValue().status;
+            }
+        });
+        
         task = FXCollections.observableArrayList();
-        task.add(new Task("Supreme", "Profile 1", "Relief Box Logo"));
+        task.add(new Task("Supreme", "Profile 1", "Relief Box Logo", "testing"));
         root = new RecursiveTreeItem<Task>(task, RecursiveTreeObject::getChildren);
-        taskView.getColumns().setAll(site, profile, item);
+        taskView.getColumns().setAll(site, profile, item, status);
         taskView.setRoot(root);
         taskView.setShowRoot(false);
+        
+        taskView.setRowFactory(new Callback<TreeTableView<Task>, TreeTableRow<Task>>() {  
+        @Override  
+        public TreeTableRow<Task> call(TreeTableView<Task> tableView2) {  
+            final TreeTableRow<Task> row = new TreeTableRow<>();  
+            row.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {  
+                @Override  
+                public void handle(MouseEvent event) {  
+                    final int index = row.getIndex();  
+                    if (index >= 0 && index < taskView.getRoot().getChildren().size() && taskView.getSelectionModel().isSelected(index)  ) {
+                        taskView.getSelectionModel().clearSelection();
+                        event.consume();  
+                    }  
+                }  
+            });  
+            return row;  
+        }  
+    });  
         
     }
     
     @FXML
     public void addTasks(ActionEvent e) {
         System.out.println("adding");
-        TreeItem<Task> addTask = new TreeItem<>(new Task("Supreme", "Profile 2", "Waves Bowl"));
+        TreeItem<Task> addTask = new TreeItem<>(new Task("Supreme", "Profile 2", "Waves Bowl", "Testing"));
         taskView.getRoot().getChildren().add(addTask);
     }
     

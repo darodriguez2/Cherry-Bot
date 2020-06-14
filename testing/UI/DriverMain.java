@@ -28,10 +28,10 @@ public class DriverMain extends Application {
     public void start(Stage stage) throws Exception {
         Parent root;
         root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/MainPageV2.fxml"));
-
+        
         stage.initStyle(StageStyle.TRANSPARENT);
         Scene scene = new Scene(root);
-        scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
+        //scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
 
         root.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override

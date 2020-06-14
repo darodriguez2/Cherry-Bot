@@ -10,39 +10,60 @@ and open the template in the editor.
 
 .tree-table-view {
     -fx-background-color: transparent;
+    /*    -fx-border-color:  black, transparent, black ,transparent;
+        -fx-border-width: 3;*/
+
 
 }
 
 .tree-table-cell {
     -fx-alignment: center ;
+
     -fx-text-fill:#ffffff;
     -fx-font: 14px "Segoe UI Semibold";
     -fx-border-width: 0 0 1 0;
-    -fx-border-color: #404040,transparent, #404040 ,transparent;
+}
+
+
+.tree-table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font: 14px "Segoe UI Semibold";
+
 }
 
 .tree-table-view .column-header {
-    -fx-border-color: #404040, #404040, #404040, #404040;
+    -fx-border-color:  #3d0000, #3d0000, #3d0000 ,#3d0000;
+    -fx-background-color: #3d0000;
+}
+
+.tree-table-row-cell:even {
+    -fx-background-color:  #404040;
+    -fx-background-inserts: 0, 0 0 1 0;
 
 }
 
-.tree-table-view .column-header {
-    -fx-text-fill: #ffffff;
-    -fx-padding: 16 0 16 0;
+
+.tree-table-row-cell:odd {
+    -fx-background-color:  #404040;
+    -fx-background-inserts: 0, 0 0 1 0;
+
 }
+
+.tree-table-row-cell:selected {
+/*    -fx-background-color: -fx-focus-color, -fx-cell-focus-inner-border, -fx-focus-color;*/
+    -fx-background-color: #ff6666;
+    -fx-background-insets: 0, 1, 2;
+}
+
 
 .tree-table-row-cell {
-    -fx-background-color: #500000;
-    -fx-background-inserts: 0, 0 0 1 0;
-
-
+    -fx-border-color:  #808080, #808080, #808080 ,#808080;
+    -fx-border-width: 3;
+/*    -fx-border-radius: 10;
+    -fx-background-radius: 10;*/
 }
 
-/*
-.tree-table-row-cell:even {
-    -fx-background-color:   #404040;
-    -fx-background-inserts: 0, 0 0 1 0;
-    -fx-padding: 0.0em;
-   
-}*/
+.scroll-bar {
+    -fx-background-color: #3d0000;
+}
 
