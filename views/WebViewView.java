@@ -45,9 +45,9 @@ public class WebViewView implements Initializable {
 
     //Just a simple mobile user agent
     private final String USERAGENT = "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1";
-    private final String itemKeyword = "Small Box Tee";
+    private final String itemKeyword = "Stapler";
     private final String itemType = "new";
-    private final String itemColor = "White";
+    private final String itemColor = "Black";
     private String supremeSessCookie = "";
     private double xOffset = 0;
     private double yOffset = 0;
@@ -71,7 +71,7 @@ public class WebViewView implements Initializable {
     @FXML
     void handleSupremeButtonAction() throws MalformedURLException, IOException, JSONException, InterruptedException {
         this.controller.sendSearchItemRequest(this.itemKeyword, this.itemType);
-        this.controller.sendClothesRequest(this.itemColor);
+        this.controller.sendAcessoryRequest();
         boolean success = this.controller.sendAddToCartRequest();
         if (!success) {
             do {
@@ -91,16 +91,16 @@ public class WebViewView implements Initializable {
 
         engine.getLoadWorker().stateProperty().addListener((observable, oldState, newState) -> {
             if (newState == Worker.State.SUCCEEDED) {
-                webView.getEngine().executeScript("javascript:document.getElementById('order_billing_name').value = 'Blue monster';"
-                        + "document.getElementById('order_email').value = 'darodriguez56732@gmail.com'; "
-                        + "document.getElementById('order_tel').value = '812-233-3333';"
-                        + "document.getElementById('bo').value = 'test address';"
-                        + "document.getElementById('order_billing_zip').value = '12345';"
-                        + "document.getElementById('order_billing_city').value = 'Schectandy';"
-                        + "document.getElementById('rnsnckrn').value = '1234 1234 4444 3333';"
-                        + "document.getElementById('orcer').value = '006';"
-                        + "document.getElementById('credit_card_month').value = '08';"
-                        + "document.getElementById('credit_card_year').value = '2024';");
+                webView.getEngine().executeScript("javascript:document.getElementById('order_billing_name').value = 'testing';"
+                        + "document.getElementById('order_email').value = 'ofij@live.com'; "
+                        + "document.getElementById('order_tel').value = '919-777-7777';"
+                        + "document.getElementById('bo').value = '116 Way';"
+                        + "document.getElementById('order_billing_zip').value = '27540';"
+                        + "document.getElementById('order_billing_city').value = 'Holly Springs';"
+                        + "document.getElementById('rnsnckrn').value = '3455 5555 5555 5555';");
+//                        + "document.getElementById('orcer').value = '006';"
+//                        + "document.getElementById('credit_card_month').value = '08';"
+//                        + "document.getElementById('credit_card_year').value = '2024';");
 
             }
         });
