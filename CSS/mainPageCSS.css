@@ -55,7 +55,6 @@ and open the template in the editor.
     -fx-background-insets: 0, 1, 2;
 }
 
-
 .tree-table-row-cell {
     -fx-border-color:  #808080, #808080, #808080 ,#808080;
     -fx-border-width: 3;

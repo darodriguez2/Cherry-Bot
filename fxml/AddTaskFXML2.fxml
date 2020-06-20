@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="mainAnchorPane" prefHeight="550.0" prefWidth="730.0" style="-fx-background-color: #3d0000;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.AddTaskView">
+   <children>
+      <AnchorPane prefHeight="78.0" prefWidth="733.0" style="-fx-background-color: #404040;">
+         <children>
+            <Label layoutX="310.0" layoutY="20.0" text="Add Task" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Semibold" size="27.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutY="78.0" prefHeight="118.0" prefWidth="733.0" style="-fx-background-color: #500000;">
+         <children>
+            <ComboBox fx:id="selectStore" layoutX="58.0" layoutY="52.0" prefHeight="28.0" prefWidth="119.0" />
+            <Label layoutX="58.0" layoutY="33.0" text="Select Store *" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Semibold" size="13.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="selectProfile" layoutX="307.0" layoutY="52.0" prefHeight="28.0" prefWidth="119.0" />
+            <Label layoutX="307.0" layoutY="33.0" text="Select Profile *" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Semibold" size="13.0" />
+               </font>
+            </Label>
+            <TextField fx:id="itemKeyword" layoutX="533.0" layoutY="53.0" style="-fx-background-color: white;" />
+            <Label layoutX="533.0" layoutY="33.0" text="Item Keyword *" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Semibold" size="13.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="2.0" layoutY="196.0" prefHeight="100.0" prefWidth="730.0" style="-fx-background-color: #660000;">
+         <children>
+            <ComboBox fx:id="itemType" layoutX="306.0" layoutY="46.0" onAction="#itemTypeSelected" prefHeight="28.0" prefWidth="119.0" />
+            <Label layoutX="306.0" layoutY="27.0" text="Item Type *" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Semibold" size="13.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="clothing" layoutX="2.0" layoutY="295.0" prefHeight="161.0" prefWidth="365.0" style="-fx-background-color: #800000;">
+         <children>
+            <Label layoutX="56.0" layoutY="14.0" text="Color *" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Semibold" size="13.0" />
+               </font>
+            </Label>
+            <TextField fx:id="color" layoutX="56.0" layoutY="33.0" style="-fx-background-color: white;" />
+            <Label layoutX="56.0" layoutY="81.0" text="Size *" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Semibold" size="13.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="size" layoutX="56.0" layoutY="100.0" prefHeight="28.0" prefWidth="119.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="accessory" layoutX="367.0" layoutY="295.0" prefHeight="161.0" prefWidth="365.0" style="-fx-background-color: #800000;">
+         <children>
+            <Label layoutX="56.0" layoutY="17.0" text="Info 1" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Semibold" size="13.0" />
+               </font>
+            </Label>
+            <TextField fx:id="info1" layoutX="56.0" layoutY="36.0" prefHeight="26.0" prefWidth="119.0" style="-fx-background-color: white;" />
+            <Label layoutX="56.0" layoutY="87.0" text="Info 2" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Semibold" size="13.0" />
+               </font>
+            </Label>
+            <TextField fx:id="info2" layoutX="56.0" layoutY="106.0" prefHeight="26.0" prefWidth="119.0" style="-fx-background-color: white;" />
+            <Label layoutX="210.0" layoutY="17.0" text="Info 3" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Semibold" size="13.0" />
+               </font>
+            </Label>
+            <TextField fx:id="info3" layoutX="210.0" layoutY="36.0" prefHeight="26.0" prefWidth="119.0" style="-fx-background-color: white;" />
+            <Label layoutX="210.0" layoutY="87.0" text="Info 4" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Semibold" size="13.0" />
+               </font>
+            </Label>
+            <TextField fx:id="info4" layoutX="210.0" layoutY="106.0" prefHeight="26.0" prefWidth="119.0" style="-fx-background-color: white;" />
+         </children>
+      </AnchorPane>
+      <JFXButton buttonType="RAISED" layoutX="256.0" layoutY="470.0" onAction="#addTask" prefHeight="30.0" prefWidth="83.0" ripplerFill="#ffa2a2" style="-fx-background-color: #404040;" text=" Add" textFill="#f8f8f8">
+         <font>
+            <Font name="Segoe UI Semibold" size="14.0" />
+         </font>
+         <graphic>
+            <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="14" />
+         </graphic>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" layoutX="386.0" layoutY="470.0" onAction="#cancelAddTask" ripplerFill="#ffa2a2" style="-fx-background-color: #404040;" text="Cancel" textFill="#f8f8f8">
+         <font>
+            <Font name="Segoe UI Semibold" size="14.0" />
+         </font>
+         <graphic>
+            <FontAwesomeIconView fill="WHITE" glyphName="TIMES" size="14" />
+         </graphic>
+      </JFXButton>
+      <Label fx:id="errorLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="230.0" layoutY="511.0" prefHeight="25.0" prefWidth="274.0" textFill="#ff6666">
+         <font>
+            <Font name="Segoe UI Semibold" size="14.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
