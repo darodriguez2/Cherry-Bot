@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="mainAnchorPane" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: #3d0000;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.ProfileView">
+   <children>
+      <AnchorPane layoutX="46.0" layoutY="93.0" opacity="0.7" prefHeight="615.0" prefWidth="1131.0" style="-fx-background-color: white;" />
+      <AnchorPane prefHeight="78.0" prefWidth="1200.0" style="-fx-background-color: #404040;">
+         <children>
+            <Label layoutX="81.0" layoutY="23.0" text="Cherry " textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Semibold" size="27.0" />
+               </font>
+            </Label>
+            <HBox layoutX="685.0" layoutY="11.0" prefHeight="63.0" prefWidth="513.0">
+               <children>
+                  <AnchorPane prefHeight="200.0" prefWidth="10.0" />
+                  <JFXButton fx:id="profileButton" contentDisplay="RIGHT" prefHeight="70.0" prefWidth="164.0" ripplerFill="#404040" style="-fx-background-color: #404040;" text="Profiles" textFill="WHITE">
+                     <font>
+                        <Font name="Segoe UI Semibold" size="16.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView fx:id="profileIcon" fill="WHITE" glyphName="USER" size="16" />
+                     </graphic>
+                  </JFXButton>
+                  <AnchorPane prefHeight="200.0" prefWidth="10.0" />
+                  <JFXButton contentDisplay="RIGHT" onAction="#taskButton" prefHeight="70.0" prefWidth="164.0" style="-fx-background-color: #404040;" text="Tasks" textFill="WHITE">
+                     <font>
+                        <Font name="Segoe UI Semibold" size="16.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="#eeeeee" glyphName="TASKS" size="16" />
+                     </graphic>
+                  </JFXButton>
+                  <AnchorPane prefHeight="200.0" prefWidth="10.0" />
+                  <JFXButton contentDisplay="RIGHT" onAction="#closeApplication" prefHeight="70.0" prefWidth="164.0" style="-fx-background-color: #404040;" text="Exit" textFill="WHITE">
+                     <font>
+                        <Font name="Segoe UI Semibold" size="16.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="#eeeeee" glyphName="TIMES" size="16" />
+                     </graphic>
+                  </JFXButton>
+                  <AnchorPane prefHeight="200.0" prefWidth="10.0" />
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="52.0" layoutY="99.0" prefHeight="602.0" prefWidth="1117.0" style="-fx-background-color: #500000;">
+         <children>
+            <ListView fx:id="profileListView" layoutX="34.0" layoutY="48.0" prefHeight="421.0" prefWidth="553.0" />
+            <AnchorPane layoutX="587.0" layoutY="48.0" prefHeight="284.0" prefWidth="484.0" style="-fx-background-color: #666666;">
+               <children>
+                  <VBox layoutX="23.0" layoutY="3.0" prefHeight="265.0" prefWidth="47.0">
+                     <children>
+                        <Label prefHeight="65.0" text="Profile :" textFill="WHITE">
+                           <font>
+                              <Font name="Segoe UI Semibold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="65.0" text="Email :" textFill="WHITE">
+                           <font>
+                              <Font name="Segoe UI Semibold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="65.0" prefWidth="104.0" text="Street :" textFill="WHITE">
+                           <font>
+                              <Font name="Segoe UI Semibold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="65.0" prefWidth="100.0" text="Zip :" textFill="WHITE">
+                           <font>
+                              <Font name="Segoe UI Semibold" size="12.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox layoutX="242.0" layoutY="3.0" prefHeight="265.0" prefWidth="47.0">
+                     <children>
+                        <Label prefHeight="65.0" text="Name :" textFill="WHITE">
+                           <font>
+                              <Font name="Segoe UI Semibold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="65.0" text="Phone :" textFill="WHITE">
+                           <font>
+                              <Font name="Segoe UI Semibold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="65.0" text="City :" textFill="WHITE">
+                           <font>
+                              <Font name="Segoe UI Semibold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="65.0" text="State :" textFill="WHITE">
+                           <font>
+                              <Font name="Segoe UI Semibold" size="12.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox layoutX="77.0" layoutY="3.0" prefHeight="265.0" prefWidth="47.0">
+                     <children>
+                        <Label prefHeight="65.0" text="TEST" textFill="WHITE">
+                           <font>
+                              <Font name="Segoe UI Semibold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="65.0" text="TEST" textFill="WHITE">
+                           <font>
+                              <Font name="Segoe UI Semibold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="65.0" prefWidth="104.0" text="TEST" textFill="WHITE">
+                           <font>
+                              <Font name="Segoe UI Semibold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="65.0" prefWidth="100.0" text="TEST" textFill="WHITE">
+                           <font>
+                              <Font name="Segoe UI Semibold" size="12.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox layoutX="296.0" layoutY="3.0" prefHeight="265.0" prefWidth="47.0">
+                     <children>
+                        <Label prefHeight="65.0" text="TEST" textFill="WHITE">
+                           <font>
+                              <Font name="Segoe UI Semibold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="65.0" text="TEST" textFill="WHITE">
+                           <font>
+                              <Font name="Segoe UI Semibold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="65.0" prefWidth="104.0" text="TEST" textFill="WHITE">
+                           <font>
+                              <Font name="Segoe UI Semibold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="65.0" prefWidth="100.0" text="TEST" textFill="WHITE">
+                           <font>
+                              <Font name="Segoe UI Semibold" size="12.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="587.0" layoutY="328.0" prefHeight="140.0" prefWidth="484.0" style="-fx-background-color: #404040;">
+               <children>
+                  <Label layoutX="14.0" layoutY="14.0" text="Card Number : " textFill="WHITE">
+                     <font>
+                        <Font name="Segoe UI Semibold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="14.0" layoutY="71.0" text="Month : " textFill="WHITE">
+                     <font>
+                        <Font name="Segoe UI Semibold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="142.0" layoutY="71.0" text="Year : " textFill="WHITE">
+                     <font>
+                        <Font name="Segoe UI Semibold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="263.0" layoutY="71.0" text="CVV : " textFill="WHITE">
+                     <font>
+                        <Font name="Segoe UI Semibold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="105.0" layoutY="-3.0" prefHeight="52.0" prefWidth="26.0" text="TEST" textFill="WHITE">
+                     <font>
+                        <Font name="Segoe UI Semibold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="303.0" layoutY="54.0" prefHeight="52.0" prefWidth="26.0" text="TEST" textFill="WHITE">
+                     <font>
+                        <Font name="Segoe UI Semibold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="176.0" layoutY="54.0" prefHeight="52.0" prefWidth="26.0" text="TEST" textFill="WHITE">
+                     <font>
+                        <Font name="Segoe UI Semibold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="61.0" layoutY="54.0" prefHeight="52.0" prefWidth="26.0" text="TEST" textFill="WHITE">
+                     <font>
+                        <Font name="Segoe UI Semibold" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="34.0" layoutY="468.0" prefHeight="52.0" prefWidth="465.0" style="-fx-background-color: #666666;">
+               <children>
+                  <JFXButton buttonType="RAISED" layoutX="14.0" layoutY="11.0" onAction="#addProfile" prefHeight="30.0" prefWidth="132.0" ripplerFill="#9bfd96" style="-fx-background-color: #4d4d4d;" text="Add New Profile" textFill="#0dff00">
+                     <graphic>
+                        <FontAwesomeIconView fill="#09ff00" glyphName="PLUS" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton buttonType="RAISED" layoutX="319.0" layoutY="11.0" prefHeight="30.0" prefWidth="132.0" ripplerFill="#fc9797" style="-fx-background-color: #4d4d4d;" text="Delete Profile" textFill="RED">
+                     <graphic>
+                        <FontAwesomeIconView fill="RED" glyphName="TRASH" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton buttonType="RAISED" layoutX="166.0" layoutY="11.0" prefHeight="30.0" prefWidth="132.0" ripplerFill="#fc9797" style="-fx-background-color: #4d4d4d;" text="Edit Profile" textFill="#ffdd00">
+                     <graphic>
+                        <FontAwesomeIconView fill="#ffdd00" glyphName="PENCIL" />
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
+            <Label layoutX="625.0" layoutY="21.0" text="Info" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Semibold" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="49.0" layoutY="21.0" prefWidth="108.0" text="Profiles" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Semibold" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

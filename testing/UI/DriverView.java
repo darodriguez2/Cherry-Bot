@@ -36,12 +36,16 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import views.AddTaskView;
+import Utilities.ViewUtility;
+import com.jfoenix.controls.JFXButton;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.scene.paint.Paint;
 
 /**
  *
  * @author diego
  */
-public class DriverView implements Initializable {
+public class DriverView extends ViewUtility implements Initializable  {
 
     @FXML
     private JFXTreeTableView<Task> taskView;
@@ -54,6 +58,12 @@ public class DriverView implements Initializable {
 
     @FXML
     private AnchorPane mainAnchorPane;
+    
+    @FXML
+    public JFXButton taskButton;
+    
+    @FXML
+    public FontAwesomeIconView taskIcon;
 
     private JFXTreeTableColumn<Task, String> site;
     private JFXTreeTableColumn<Task, String> item;
@@ -70,10 +80,13 @@ public class DriverView implements Initializable {
         this.taskView.setPlaceholder(new Label("Add a task"));
         task = FXCollections.observableArrayList();
         task.add(new Task("Supreme", "Profile 1", "Relief Box Logo", "testing"));
-        root = new RecursiveTreeItem<Task>(task, RecursiveTreeObject::getChildren);
+        root = new RecursiveTreeItem<>(task, RecursiveTreeObject::getChildren);
         this.taskView.getColumns().setAll(this.site, this.profile, this.item, this.status);
         this.taskView.setRoot(root);
         this.taskView.setShowRoot(false);
+        
+        this.taskButton.setTextFill( Paint.valueOf("#ffa2a2"));
+        this.taskIcon.setFill(Paint.valueOf("#ffa2a2"));
 
     }
 
@@ -109,12 +122,8 @@ public class DriverView implements Initializable {
 
     @FXML
     public void closeApplication() {
-        Stage stage = (Stage) this.mainAnchorPane.getScene().getWindow();
-        stage.close();
-        stage.setOnCloseRequest(e -> {
-            Platform.exit();
-            System.exit(0);
-        });
+        this.closeApplication(this.mainAnchorPane);
+
     }
 
     @FXML
@@ -126,6 +135,14 @@ public class DriverView implements Initializable {
     public void stopButtonAction() {
 
     }
+    
+    @FXML
+    public void profileButton(ActionEvent _event) throws IOException {
+        this.switchScenes(_event, "fxml/ProfileFXML.fxml");
+    }
+    
+    
+    /////////////////////TABLE CLASSES//////////////////////////////
 
     @FXML
     public JFXTreeTableView getTreeTableView() {

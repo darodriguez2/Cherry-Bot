@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="mainAnchorPane" prefHeight="664.0" prefWidth="581.0" style="-fx-background-color: #3d0000;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="testing.UI.DriverView">
+   <children>
+      <AnchorPane layoutX="36.0" opacity="0.7" prefHeight="599.0" prefWidth="509.0" style="-fx-background-color: white;" />
+      <AnchorPane prefHeight="78.0" prefWidth="581.0" style="-fx-background-color: #404040;">
+         <children>
+            <Label layoutX="247.0" layoutY="20.0" text="Cherry " textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Semibold" size="27.0" />
+               </font>
+            </Label>
+            <JFXButton alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="441.0" layoutY="5.0" onAction="#closeApplication" prefHeight="70.0" prefWidth="120.0" ripplerFill="#ffa2a2" style="-fx-background-color: #404040;" text="Exit" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Semibold" size="16.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIconView fill="#eeeeee" glyphName="TIMES" size="16" />
+               </graphic>
+            </JFXButton>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="42.0" layoutY="78.0" prefHeight="514.0" prefWidth="497.0" style="-fx-background-color: #500000;">
+         <children>
+            <FontAwesomeIconView fill="WHITE" glyphName="USER" layoutX="206.0" layoutY="116.0" size="75" textAlignment="CENTER" wrappingWidth="85.00000301748514" />
+            <Label layoutX="155.0" layoutY="128.0" text="Create Account" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Semibold" size="27.0" />
+               </font>
+            </Label>
+            <Label layoutX="126.0" layoutY="193.0" text="Username" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Semibold" size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="124.0" layoutY="272.0" text="Password" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Semibold" size="20.0" />
+               </font>
+            </Label>
+            <TextField layoutX="124.0" layoutY="223.0" prefHeight="25.0" prefWidth="245.0" />
+            <JFXButton buttonType="RAISED" layoutX="126.0" layoutY="440.0" onAction="#addTask" prefHeight="30.0" prefWidth="92.0" ripplerFill="#ffa2a2" style="-fx-background-color: #404040;" text="Confirm" textFill="#f8f8f8">
+               <font>
+                  <Font name="Segoe UI Semibold" size="14.0" />
+               </font>
+            </JFXButton>
+            <JFXButton buttonType="RAISED" layoutX="277.0" layoutY="440.0" onAction="#addTask" prefHeight="30.0" prefWidth="92.0" ripplerFill="#ffa2a2" style="-fx-background-color: #404040;" text="Back" textFill="#f8f8f8">
+               <font>
+                  <Font name="Segoe UI Semibold" size="14.0" />
+               </font>
+            </JFXButton>
+            <Label layoutX="124.0" layoutY="355.0" text="Confirm Password" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Semibold" size="20.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="129.0" layoutY="480.0" prefHeight="20.0" prefWidth="245.0" text="TEST" textFill="#5fecff">
+               <font>
+                  <Font name="Segoe UI Semibold" size="14.0" />
+               </font>
+            </Label>
+            <PasswordField layoutX="129.0" layoutY="385.0" prefHeight="25.0" prefWidth="245.0" />
+            <PasswordField layoutX="124.0" layoutY="302.0" prefHeight="25.0" prefWidth="245.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
