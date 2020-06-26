@@ -92,25 +92,9 @@ public class DriverView extends ViewUtility implements Initializable  {
 
     @FXML
     public void addButton(ActionEvent _event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/AddTaskFXML2.fxml"));
-        Parent parent = loader.load();
+        FXMLLoader loader = this.openPopupWindow(_event, "fxml/AddTaskFXML2.fxml");
         AddTaskView view = loader.getController();
         view.setTaskView(this.taskView);
-        Stage stage = new Stage();
-        stage.initStyle(StageStyle.TRANSPARENT);
-
-        parent.setOnMousePressed((MouseEvent event) -> {
-            xOffset = stage.getX() - event.getScreenX();
-            yOffset = stage.getY() - event.getScreenY();
-        });
-
-        parent.setOnMouseDragged((MouseEvent event) -> {
-            stage.setX(event.getScreenX() + xOffset);
-            stage.setY(event.getScreenY() + yOffset);
-        });
-
-        stage.setScene(new Scene(parent));
-        stage.show();
     }
 
     @FXML

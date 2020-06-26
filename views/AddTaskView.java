@@ -5,6 +5,7 @@
  */
 package views;
 
+import Utilities.ViewUtility;
 import com.jfoenix.controls.JFXTreeTableView;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -19,7 +20,7 @@ import javafx.stage.Stage;
 
 import testing.UI.*;
 
-public class AddTaskView implements Initializable {
+public class AddTaskView extends ViewUtility implements Initializable {
 
     @FXML
     ComboBox selectStore;
@@ -105,7 +106,7 @@ public class AddTaskView implements Initializable {
             switch (this.itemType.getValue().toString()) {
                 case "Clothing":
                     if (this.selectStore.getValue() == null || this.selectProfile.getValue() == null || this.itemKeyword.getText() == null
-                            || this.color.getText() == null || this.size.getValue() == null) {
+                            || this.color.getText().equals("") || this.size.getValue() == null) {
                         return false;
                     }
                     break;
@@ -128,8 +129,7 @@ public class AddTaskView implements Initializable {
     }
 
     public void closeWindow() {
-        Stage stage = (Stage) this.mainAnchorPane.getScene().getWindow();
-        stage.close();
+        this.closeWindow(this.mainAnchorPane);
     }
 
     public void setTaskView(JFXTreeTableView<Task> _taskView) {

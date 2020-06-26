@@ -35,7 +35,7 @@ public class ProfileView extends ViewUtility implements Initializable{
     @FXML private Label year;
     @FXML private Label cvv;
     
-    @FXML private ListView<String> profileListView;
+    @FXML private ListView<String> profileListView = new ListView<>();
     
     @FXML private AnchorPane mainAnchorPane;
     
@@ -50,7 +50,7 @@ public class ProfileView extends ViewUtility implements Initializable{
     
     @FXML
     public void taskButton(ActionEvent _event) throws IOException {
-        this.switchToTaskScene(_event, "fxml/MainPageV2.fxml");
+        this.switchToTaskScene(_event);
     }
 
     @Override
@@ -61,7 +61,7 @@ public class ProfileView extends ViewUtility implements Initializable{
     
     @FXML
     public void addProfile() {
-        this.profileListView = new ListView();
+        System.out.println("Adding Profile");
         this.profileListView.getItems().add("test");
     }
     
