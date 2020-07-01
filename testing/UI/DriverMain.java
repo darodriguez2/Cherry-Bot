@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package main;
-
+package testing.UI;
 
 import javafx.application.Application;
+import static javafx.application.Application.launch;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,21 +17,21 @@ import javafx.stage.StageStyle;
 
 /**
  *
- * @author darod
+ * @author diego
  */
-public class StartApplication extends Application {
+public class DriverMain extends Application {
 
     private double xOffset = 0;
     private double yOffset = 0;
-    
+
     @Override
     public void start(Stage stage) throws Exception {
         Parent root;
-        root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/MainPageFXML.fxml"));
-
+        root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/LoginFXML.fxml"));
+        
         stage.initStyle(StageStyle.TRANSPARENT);
         Scene scene = new Scene(root);
-        scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
+        //scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
 
         root.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
@@ -40,7 +40,7 @@ public class StartApplication extends Application {
                 yOffset = stage.getY() - event.getScreenY();
             }
         });
-        
+
         root.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -48,7 +48,8 @@ public class StartApplication extends Application {
                 stage.setY(event.getScreenY() + yOffset);
             }
         });
-        
+
+        scene.getStylesheets().add("CSS/mainPageCSS.css");
         stage.setScene(scene);
         stage.show();
     }
@@ -59,5 +60,4 @@ public class StartApplication extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-
 }

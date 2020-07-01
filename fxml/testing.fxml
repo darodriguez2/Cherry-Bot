@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.effect.GaussianBlur?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="mainAnchorPane" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: #3d0000;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="testing.UI.DriverView">
+   <children>
+      <AnchorPane prefHeight="800.0" prefWidth="1200.0">
+         <children>
+            <TabPane prefHeight="800.0" prefWidth="1200.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab text="Untitled Tab 1">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <AnchorPane prefHeight="78.0" prefWidth="1200.0" style="-fx-background-color: #404040;">
+                                 <children>
+                                    <Label layoutX="81.0" layoutY="23.0" text="Cherry " textFill="WHITE">
+                                       <font>
+                                          <Font name="Segoe UI Semibold" size="27.0" />
+                                       </font>
+                                    </Label>
+                                    <HBox layoutX="685.0" layoutY="11.0" prefHeight="63.0" prefWidth="515.0">
+                                       <children>
+                                          <JFXButton buttonType="RAISED" contentDisplay="RIGHT" prefHeight="70.0" prefWidth="164.0" ripplerFill="#ffa2a2" style="-fx-background-color: #404040;" text="Profiles" textFill="WHITE">
+                                             <font>
+                                                <Font name="Segoe UI Semibold" size="16.0" />
+                                             </font>
+                                             <graphic>
+                                                <FontAwesomeIconView fill="WHITE" glyphName="USER" size="16" />
+                                             </graphic>
+                                          </JFXButton>
+                                          <AnchorPane prefHeight="200.0" prefWidth="10.0" />
+                                          <JFXButton buttonType="RAISED" contentDisplay="RIGHT" prefHeight="70.0" prefWidth="164.0" ripplerFill="#ffa2a2" style="-fx-background-color: #404040;" text="Tasks" textFill="WHITE">
+                                             <font>
+                                                <Font name="Segoe UI Semibold" size="16.0" />
+                                             </font>
+                                             <graphic>
+                                                <FontAwesomeIconView fill="#eeeeee" glyphName="TASKS" size="16" />
+                                             </graphic>
+                                          </JFXButton>
+                                          <AnchorPane prefHeight="200.0" prefWidth="10.0" />
+                                          <JFXButton buttonType="RAISED" contentDisplay="RIGHT" onAction="#closeApplication" prefHeight="70.0" prefWidth="164.0" ripplerFill="#ffa2a2" style="-fx-background-color: #404040;" text="Exit" textFill="WHITE">
+                                             <font>
+                                                <Font name="Segoe UI Semibold" size="16.0" />
+                                             </font>
+                                             <graphic>
+                                                <FontAwesomeIconView fill="#eeeeee" glyphName="TIMES" size="16" />
+                                             </graphic>
+                                          </JFXButton>
+                                          <AnchorPane prefHeight="200.0" prefWidth="10.0" />
+                                       </children>
+                                    </HBox>
+                                    <Label contentDisplay="RIGHT" layoutX="478.0" layoutY="28.0" prefHeight="30.0" prefWidth="88.0" text="Label" textFill="WHITE">
+                                       <font>
+                                          <Font name="Segoe UI Semibold" size="16.0" />
+                                       </font>
+                                       <graphic>
+                                          <FontAwesomeIconView fill="#eeeeee" glyphName="TASKS" size="16" />
+                                       </graphic>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane layoutX="31.0" layoutY="156.0" prefHeight="459.0" prefWidth="1138.0" style="-fx-background-color: #500000;">
+                                 <children>
+                                    <StackPane layoutX="15.0" layoutY="18.0" prefHeight="420.0" prefWidth="1108.0" style="-fx-background-color: #ff8080;">
+                                       <effect>
+                                          <GaussianBlur radius="0.0" />
+                                       </effect>
+                                    </StackPane>
+                                    <JFXTreeTableView fx:id="taskView" layoutX="15.0" layoutY="18.0" prefHeight="423.0" prefWidth="1111.0">
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                    </JFXTreeTableView>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane layoutX="773.0" layoutY="615.0" prefHeight="55.0" prefWidth="396.0" style="-fx-background-color: #500000;">
+                                 <children>
+                                    <JFXButton buttonType="RAISED" layoutX="14.0" layoutY="15.0" ripplerFill="#ffa2a2" style="-fx-background-color: #404040;" text=" Start" textFill="#f8f8f8">
+                                       <font>
+                                          <Font name="Segoe UI Semibold" size="14.0" />
+                                       </font>
+                                       <graphic>
+                                          <FontAwesomeIconView fill="#f8f8f8" glyphName="PLAY" size="14" />
+                                       </graphic>
+                                    </JFXButton>
+                                    <JFXButton buttonType="RAISED" layoutX="110.0" layoutY="15.0" ripplerFill="#ffa2a2" style="-fx-background-color: #404040;" text=" Stop" textFill="#f8f8f8">
+                                       <font>
+                                          <Font name="Segoe UI Semibold" size="14.0" />
+                                       </font>
+                                       <graphic>
+                                          <FontAwesomeIconView fill="WHITE" glyphName="STOP" size="14" />
+                                       </graphic>
+                                    </JFXButton>
+                                    <JFXButton buttonType="RAISED" layoutX="198.0" layoutY="15.0" onAction="#addTasks" ripplerFill="#ffa2a2" style="-fx-background-color: #404040;" text=" Add" textFill="#f8f8f8">
+                                       <font>
+                                          <Font name="Segoe UI Semibold" size="14.0" />
+                                       </font>
+                                       <graphic>
+                                          <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="14" />
+                                       </graphic>
+                                    </JFXButton>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab text="Untitled Tab 2">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+                </Tab>
+              </tabs>
+            </TabPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
