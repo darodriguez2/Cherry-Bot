@@ -48,6 +48,26 @@ public class ViewUtility {
         return loader;
     }
     
+    public FXMLLoader switchToProfileScene(Event _event, String _fxml) throws IOException {
+        FXMLLoader loader;
+        Parent parent;
+        Scene sceneToSwitchTo;
+        Stage referenceStage;
+
+        loader = new FXMLLoader(getClass().getClassLoader().getResource(_fxml));
+        parent = loader.load();
+        sceneToSwitchTo = new Scene(parent);
+        sceneToSwitchTo.getStylesheets().add("CSS/ProfileCSS.css");
+        
+        referenceStage = (Stage) ((Node) _event.getSource()).getScene().getWindow();
+        referenceStage.setScene(sceneToSwitchTo);
+        
+        makeStageMovable(parent, referenceStage);
+        
+        referenceStage.show();
+        return loader;
+    }
+    
     public FXMLLoader switchToTaskScene(Event _event) throws IOException {
         String fxml = "fxml/TaskFXML.fxml";
         FXMLLoader loader;

@@ -3,17 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package testing.UI;
+package views;
 
 import com.jfoenix.controls.JFXTreeTableColumn;
-import com.jfoenix.controls.JFXTreeTableRow;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,9 +20,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
@@ -32,20 +27,19 @@ import javafx.scene.control.TreeTableRow;
 import javafx.scene.control.TreeTableView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import views.AddTaskView;
 import Utilities.ViewUtility;
 import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.scene.paint.Paint;
+import testing.UI.Task;
 
 /**
  *
  * @author diego
  */
-public class DriverView extends ViewUtility implements Initializable  {
+public class TaskView extends ViewUtility implements Initializable  {
 
     @FXML
     private JFXTreeTableView<Task> taskView;
@@ -122,7 +116,8 @@ public class DriverView extends ViewUtility implements Initializable  {
     
     @FXML
     public void profileButton(ActionEvent _event) throws IOException {
-        this.switchScenes(_event, "fxml/ProfileFXML.fxml");
+        this.switchToProfileScene(_event, "fxml/ProfileFXML.fxml");
+        
     }
     
     
