@@ -7,11 +7,18 @@ package views;
 
 import Utilities.ViewUtility;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
+import software.amazon.awssdk.services.dynamodb.DynamoDbClientBuilder;
+import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
+import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
+import software.amazon.awssdk.services.dynamodb.model.GetItemRequest;
 
 /**
  *
@@ -34,15 +41,52 @@ public class LoginView extends ViewUtility {
     @FXML
     private AnchorPane mainAnchorPane;
     
-    public void checkLogin() {
-        //Grab username and password, then check them against aws to see if an account exists. 
-        //This should return a UUID
+    private DynamoDbClientBuilder builder2 = DynamoDbClient.builder();
+    private DynamoDbClient client = builder2.build();
+    
+    public boolean checkLogin() {
+        if (this.username.getText().isEmpty()) {
+            return false;
+        } else {
+            Map<String, AttributeValue> keyToGet = new HashMap<>();
+            keyToGet.put("Username", AttributeValue.builder().s(this.username.getText()).build());
+            GetItemRequest request = GetItemRequest.builder().key(keyToGet).tableName("LoginCredentials").build();
+            try {
+                Map<String, AttributeValue> returnedItem = this.client.getItem(request).item();
+
+                if (returnedItem.isEmpty()) {
+                    System.out.println("Incorrect Username");
+                    return false;
+                } else {
+                    String username = returnedItem.get("Username").s();
+                    String accountPassword = returnedItem.get("Password").s();
+                    System.out.println(accountPassword);
+                    if (!this.password.getText().equals(accountPassword)) {
+                        System.out.println("Incorrect Password");
+                        System.out.println("Password entered: " + this.password.getText() + "does not match password in db: " + accountPassword);
+                        return false;
+                    }
+                    String uuid = returnedItem.get("UUID").s();
+                    System.out.println(uuid);
+                    return true;
+                }
+            } catch (DynamoDbException e) {
+                System.out.println("EXCEPTION AT USERNAME");
+                System.err.println(e.getMessage());
+                System.exit(1);
+            }
+            System.out.println("Unable to submit request.");
+            return false;
+        }
     }
     
     @FXML
     public void confirm(ActionEvent _event) throws IOException {
-        checkLogin();
-        this.switchToTaskScene(_event);
+        if (checkLogin()) {
+            this.switchToTaskScene(_event);
+        } else {
+            this.errorLabel.setText("Incorrect Login");
+        }
     }
     
     public void loadProfiles() {
