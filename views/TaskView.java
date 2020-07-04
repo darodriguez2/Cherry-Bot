@@ -3,17 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package testing.UI;
+package views;
 
 import com.jfoenix.controls.JFXTreeTableColumn;
-import com.jfoenix.controls.JFXTreeTableRow;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,9 +20,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
@@ -32,20 +27,19 @@ import javafx.scene.control.TreeTableRow;
 import javafx.scene.control.TreeTableView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import views.AddTaskView;
 import Utilities.ViewUtility;
 import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.scene.paint.Paint;
+import testing.UI.Task;
 
 /**
  *
  * @author diego
  */
-public class DriverView extends ViewUtility implements Initializable  {
+public class TaskView extends ViewUtility implements Initializable  {
 
     @FXML
     private JFXTreeTableView<Task> taskView;
@@ -92,25 +86,9 @@ public class DriverView extends ViewUtility implements Initializable  {
 
     @FXML
     public void addButton(ActionEvent _event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/AddTaskFXML2.fxml"));
-        Parent parent = loader.load();
+        FXMLLoader loader = this.openPopupWindow(_event, "fxml/AddTaskFXML2.fxml");
         AddTaskView view = loader.getController();
         view.setTaskView(this.taskView);
-        Stage stage = new Stage();
-        stage.initStyle(StageStyle.TRANSPARENT);
-
-        parent.setOnMousePressed((MouseEvent event) -> {
-            xOffset = stage.getX() - event.getScreenX();
-            yOffset = stage.getY() - event.getScreenY();
-        });
-
-        parent.setOnMouseDragged((MouseEvent event) -> {
-            stage.setX(event.getScreenX() + xOffset);
-            stage.setY(event.getScreenY() + yOffset);
-        });
-
-        stage.setScene(new Scene(parent));
-        stage.show();
     }
 
     @FXML
@@ -138,7 +116,8 @@ public class DriverView extends ViewUtility implements Initializable  {
     
     @FXML
     public void profileButton(ActionEvent _event) throws IOException {
-        this.switchScenes(_event, "fxml/ProfileFXML.fxml");
+        this.switchToProfileScene(_event, "fxml/ProfileFXML.fxml");
+        
     }
     
     

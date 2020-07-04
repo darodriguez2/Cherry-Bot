@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="mainAnchorPane" prefHeight="550.0" prefWidth="730.0" style="-fx-background-color: #3d0000;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.AddTaskView">
+<AnchorPane id="AnchorPane" fx:id="mainAnchorPane" prefHeight="550.0" prefWidth="730.0" style="-fx-background-color: #3d0000;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.AddProfileView">
    <children>
       <AnchorPane prefHeight="78.0" prefWidth="733.0" style="-fx-background-color: #404040;">
          <children>
@@ -56,30 +56,30 @@
                               <Font name="Segoe UI Semibold" size="13.0" />
                            </font>
                         </Label>
-                        <TextField prefHeight="25.0" prefWidth="197.0" />
+                        <TextField fx:id="profileName" prefHeight="25.0" prefWidth="197.0" />
                         <Label prefHeight="31.0" prefWidth="87.0" textFill="WHITE">
                            <font>
                               <Font name="Segoe UI Semibold" size="13.0" />
                            </font>
                         </Label>
-                        <TextField prefHeight="25.0" prefWidth="197.0" />
+                        <TextField fx:id="email" prefHeight="25.0" prefWidth="197.0" />
                         <Label prefHeight="31.0" prefWidth="87.0" textFill="WHITE">
                            <font>
                               <Font name="Segoe UI Semibold" size="13.0" />
                            </font>
                         </Label>
-                        <TextField prefHeight="25.0" prefWidth="197.0" />
+                        <TextField fx:id="street" prefHeight="25.0" prefWidth="197.0" />
                         <Label prefHeight="30.0" prefWidth="87.0" textFill="WHITE">
                            <font>
                               <Font name="Segoe UI Semibold" size="13.0" />
                            </font>
                         </Label>
-                        <TextField prefHeight="25.0" prefWidth="197.0" />
+                        <TextField fx:id="city" prefHeight="25.0" prefWidth="197.0" />
                      </children>
                   </VBox>
                </children>
             </HBox>
-            <HBox layoutX="376.0" prefHeight="226.0" prefWidth="357.0">
+            <HBox layoutX="376.0" prefHeight="230.0" prefWidth="357.0">
                <children>
                   <VBox prefHeight="228.0" prefWidth="100.0">
                      <children>
@@ -93,7 +93,7 @@
                               <Font name="Segoe UI Semibold" size="13.0" />
                            </font>
                         </Label>
-                        <Label alignment="CENTER_RIGHT" prefHeight="55.0" prefWidth="87.0" text="City :" textFill="WHITE">
+                        <Label alignment="CENTER_RIGHT" prefHeight="55.0" prefWidth="87.0" text="Zip:" textFill="WHITE">
                            <font>
                               <Font name="Segoe UI Semibold" size="13.0" />
                            </font>
@@ -105,32 +105,32 @@
                         </Label>
                      </children>
                   </VBox>
-                  <VBox prefHeight="218.0" prefWidth="170.0">
+                  <VBox prefHeight="202.0" prefWidth="170.0">
                      <children>
                         <Label prefHeight="13.0" prefWidth="87.0" textFill="WHITE">
                            <font>
                               <Font name="Segoe UI Semibold" size="13.0" />
                            </font>
                         </Label>
-                        <TextField prefHeight="25.0" prefWidth="197.0" />
+                        <TextField fx:id="fullName" prefHeight="25.0" prefWidth="197.0" />
                         <Label prefHeight="31.0" prefWidth="87.0" textFill="WHITE">
                            <font>
                               <Font name="Segoe UI Semibold" size="13.0" />
                            </font>
                         </Label>
-                        <TextField prefHeight="25.0" prefWidth="197.0" />
+                        <TextField fx:id="phone" prefHeight="25.0" prefWidth="197.0" />
                         <Label prefHeight="31.0" prefWidth="87.0" textFill="WHITE">
                            <font>
                               <Font name="Segoe UI Semibold" size="13.0" />
                            </font>
                         </Label>
-                        <TextField prefHeight="25.0" prefWidth="197.0" />
+                        <TextField fx:id="zip" prefHeight="25.0" prefWidth="197.0" />
                         <Label prefHeight="30.0" prefWidth="87.0" textFill="WHITE">
                            <font>
                               <Font name="Segoe UI Semibold" size="13.0" />
                            </font>
                         </Label>
-                        <ComboBox prefHeight="25.0" prefWidth="68.0" />
+                        <ComboBox fx:id="state" prefHeight="25.0" prefWidth="66.0" />
                      </children>
                   </VBox>
                </children>
@@ -139,7 +139,7 @@
       </AnchorPane>
       <AnchorPane layoutX="2.0" layoutY="305.0" prefHeight="158.0" prefWidth="730.0" style="-fx-background-color: #660000;">
          <children>
-            <Label alignment="CENTER_RIGHT" layoutX="24.0" layoutY="73.0" prefHeight="19.0" prefWidth="83.0" text="Month :" textFill="WHITE">
+            <Label alignment="CENTER_RIGHT" layoutX="24.0" layoutY="83.0" prefHeight="19.0" prefWidth="83.0" text="Month :" textFill="WHITE">
                <font>
                   <Font name="Segoe UI Semibold" size="13.0" />
                </font>
@@ -149,23 +149,23 @@
                   <Font name="Segoe UI Semibold" size="13.0" />
                </font>
             </Label>
-            <Label layoutX="428.0" layoutY="73.0" text="Year :" textFill="WHITE">
+            <Label layoutX="429.0" layoutY="83.0" text="Year :" textFill="WHITE">
                <font>
                   <Font name="Segoe UI Semibold" size="13.0" />
                </font>
             </Label>
-            <TextField layoutX="127.0" layoutY="25.0" prefHeight="25.0" prefWidth="197.0" />
+            <TextField fx:id="cardNumber" layoutX="127.0" layoutY="25.0" prefHeight="25.0" prefWidth="197.0" />
             <Label layoutX="429.0" layoutY="28.0" text="CVV :" textFill="WHITE">
                <font>
                   <Font name="Segoe UI Semibold" size="13.0" />
                </font>
             </Label>
-            <TextField layoutX="471.0" layoutY="25.0" prefHeight="25.0" prefWidth="83.0" />
-            <ComboBox layoutX="471.0" layoutY="71.0" prefHeight="25.0" prefWidth="68.0" />
-            <ComboBox layoutX="127.0" layoutY="71.0" prefHeight="25.0" prefWidth="68.0" />
+            <TextField fx:id="cvv" layoutX="471.0" layoutY="25.0" prefHeight="25.0" prefWidth="83.0" />
+            <TextField fx:id="year" layoutX="472.0" layoutY="80.0" prefHeight="25.0" prefWidth="83.0" />
+            <TextField fx:id="month" layoutX="127.0" layoutY="80.0" prefHeight="25.0" prefWidth="83.0" />
          </children>
       </AnchorPane>
-      <JFXButton buttonType="RAISED" layoutX="254.0" layoutY="481.0" onAction="#addTask" prefHeight="30.0" prefWidth="83.0" ripplerFill="#ffa2a2" style="-fx-background-color: #404040;" text=" Add" textFill="#f8f8f8">
+      <JFXButton buttonType="RAISED" layoutX="254.0" layoutY="481.0" onAction="#addProfile" prefHeight="30.0" prefWidth="83.0" ripplerFill="#ffa2a2" style="-fx-background-color: #404040;" text=" Add" textFill="#f8f8f8">
          <font>
             <Font name="Segoe UI Semibold" size="14.0" />
          </font>
@@ -173,7 +173,7 @@
             <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="14" />
          </graphic>
       </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="399.0" layoutY="481.0" onAction="#cancelAddTask" ripplerFill="#ffa2a2" style="-fx-background-color: #404040;" text="Cancel" textFill="#f8f8f8">
+      <JFXButton buttonType="RAISED" layoutX="399.0" layoutY="481.0" onAction="#cancelAddProfile" ripplerFill="#ffa2a2" style="-fx-background-color: #404040;" text="Cancel" textFill="#f8f8f8">
          <font>
             <Font name="Segoe UI Semibold" size="14.0" />
          </font>
@@ -181,7 +181,12 @@
             <FontAwesomeIconView fill="WHITE" glyphName="TIMES" size="14" />
          </graphic>
       </JFXButton>
-      <Label fx:id="errorLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="230.0" layoutY="511.0" prefHeight="25.0" prefWidth="274.0" text="test" textFill="#ff6666">
+      <Label fx:id="errorLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="230.0" layoutY="511.0" prefHeight="25.0" prefWidth="274.0" textFill="#ff6666">
+         <font>
+            <Font name="Segoe UI Semibold" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="errorLabel1" alignment="CENTER" contentDisplay="CENTER" layoutX="240.0" layoutY="521.0" prefHeight="25.0" prefWidth="274.0" textFill="#ff6666">
          <font>
             <Font name="Segoe UI Semibold" size="14.0" />
          </font>

@@ -1,0 +1,60 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jun 26, 2020, 4:49:07 PM
+    Author     : darod
+*/
+
+.editableFields {
+    -fx-background-color: white;
+}
+
+.uneditableFields {
+    -fx-background-color: transparent;
+}
+
+.list-view{
+    -fx-background-color: #404040;
+}
+
+.list-cell{
+    -fx-alignment: center ;
+
+    -fx-text-fill:#ffffff;
+    -fx-font: 14px "Segoe UI Semibold";
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color:  #808080, #808080, #808080 ,#808080;
+    -fx-border-width: 3;
+}
+
+.list-cell:even {
+    -fx-background-color:  #404040;
+    -fx-background-inserts: 0, 0 0 1 0;
+
+}
+
+
+.list-cell:odd {
+    -fx-background-color:  #404040;
+    -fx-background-inserts: 0, 0 0 1 0;
+
+}
+
+.list-cell:selected {
+/*    -fx-background-color: -fx-focus-color, -fx-cell-focus-inner-border, -fx-focus-color;*/
+    -fx-background-color: #ff6666;
+    -fx-background-insets: 0, 1, 2;
+}
+
+.scroll-bar {
+    -fx-background-color: #3d0000;
+}
+
+.placeholder {
+    -fx-text-fill:#ffffff;
+    -fx-font: 12px "Segoe UI Semibold";
+}
+

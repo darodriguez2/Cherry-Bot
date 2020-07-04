@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="mainAnchorPane" prefHeight="664.0" prefWidth="581.0" style="-fx-background-color: #3d0000;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="testing.UI.DriverView">
+<AnchorPane id="AnchorPane" fx:id="mainAnchorPane" prefHeight="664.0" prefWidth="581.0" style="-fx-background-color: #3d0000;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.LoginView">
    <children>
       <AnchorPane layoutX="36.0" opacity="0.7" prefHeight="599.0" prefWidth="509.0" style="-fx-background-color: white;" />
       <AnchorPane prefHeight="78.0" prefWidth="581.0" style="-fx-background-color: #404040;">
@@ -18,7 +18,7 @@
                   <Font name="Segoe UI Semibold" size="27.0" />
                </font>
             </Label>
-            <JFXButton alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="441.0" layoutY="5.0" onAction="#closeApplication" prefHeight="70.0" prefWidth="120.0" ripplerFill="#ffa2a2" style="-fx-background-color: #404040;" text="Exit" textFill="WHITE">
+            <JFXButton alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="441.0" layoutY="5.0" onAction="#exit" prefHeight="70.0" prefWidth="120.0" ripplerFill="#404040" style="-fx-background-color: #404040;" text="Exit" textFill="WHITE">
                <font>
                   <Font name="Segoe UI Semibold" size="16.0" />
                </font>
@@ -46,28 +46,28 @@
                   <Font name="Segoe UI Semibold" size="20.0" />
                </font>
             </Label>
-            <TextField layoutX="126.0" layoutY="243.0" prefHeight="25.0" prefWidth="245.0" />
-            <JFXButton buttonType="RAISED" layoutX="126.0" layoutY="425.0" onAction="#addTask" prefHeight="30.0" prefWidth="92.0" ripplerFill="#ffa2a2" style="-fx-background-color: #404040;" text="Confirm" textFill="#f8f8f8">
+            <TextField fx:id="username" layoutX="126.0" layoutY="243.0" prefHeight="25.0" prefWidth="245.0" />
+            <JFXButton buttonType="RAISED" layoutX="126.0" layoutY="425.0" onAction="#confirm" prefHeight="30.0" prefWidth="92.0" ripplerFill="#ffa2a2" style="-fx-background-color: #404040;" text="Confirm" textFill="#f8f8f8">
                <font>
                   <Font name="Segoe UI Semibold" size="14.0" />
                </font>
             </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="255.0" layoutY="425.0" onAction="#addTask" prefHeight="30.0" prefWidth="120.0" ripplerFill="#ffa2a2" style="-fx-background-color: #404040;" text="Create Account" textFill="#f8f8f8">
+            <JFXButton buttonType="RAISED" layoutX="255.0" layoutY="425.0" onAction="#createAccount" prefHeight="30.0" prefWidth="120.0" ripplerFill="#ffa2a2" style="-fx-background-color: #404040;" text="Create Account" textFill="#f8f8f8">
                <font>
                   <Font name="Segoe UI Semibold" size="14.0" />
                </font>
             </JFXButton>
-            <Label layoutX="271.0" layoutY="371.0" text="Forget Password?" textFill="WHITE">
+            <Label layoutX="271.0" layoutY="371.0" text="Forgot Password?" textFill="WHITE">
                <font>
                   <Font name="Segoe UI Semibold" size="13.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" layoutX="126.0" layoutY="472.0" prefHeight="20.0" prefWidth="245.0" text="TEST" textFill="#00ff2c">
+            <Label fx:id="errorLabel" alignment="CENTER" layoutX="126.0" layoutY="472.0" prefHeight="20.0" prefWidth="245.0" textFill="#00ff2c">
                <font>
                   <Font name="Segoe UI Semibold" size="14.0" />
                </font>
             </Label>
-            <PasswordField layoutX="126.0" layoutY="346.0" prefHeight="25.0" prefWidth="245.0" />
+            <PasswordField fx:id="password" layoutX="126.0" layoutY="346.0" prefHeight="25.0" prefWidth="245.0" />
          </children>
       </AnchorPane>
    </children>
