@@ -25,6 +25,11 @@ import org.json.JSONObject;
 
 public class SupremeTranslator implements SupremeInterface {
 
+    /**
+     * 
+     * @param _itemType
+     * @return 
+     */
     @Override
     public JSONArray getStock(String _itemType) {
         String mobileStockEndpoint = "https://www.supremenewyork.com/mobile_stock.json";

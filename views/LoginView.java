@@ -6,6 +6,7 @@
 package views;
 
 import Utilities.ViewUtility;
+import controllers.AccountController;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,44 +41,32 @@ public class LoginView extends ViewUtility {
     
     @FXML
     private AnchorPane mainAnchorPane;
-    
-    private DynamoDbClientBuilder builder2 = DynamoDbClient.builder();
-    private DynamoDbClient client = builder2.build();
+       
+    private AccountController acController = new AccountController();
     
     public boolean checkLogin() {
-        if (this.username.getText().isEmpty()) {
+        if (this.username.getText().isEmpty() || this.password.getText().isEmpty()) {
             return false;
         } else {
-            Map<String, AttributeValue> keyToGet = new HashMap<>();
-            keyToGet.put("Username", AttributeValue.builder().s(this.username.getText()).build());
-            GetItemRequest request = GetItemRequest.builder().key(keyToGet).tableName("LoginCredentials").build();
-            try {
-                Map<String, AttributeValue> returnedItem = this.client.getItem(request).item();
-
-                if (returnedItem.isEmpty()) {
-                    System.out.println("Incorrect Username");
-                    return false;
-                } else {
-                    String username = returnedItem.get("Username").s();
-                    String accountPassword = returnedItem.get("Password").s();
-                    System.out.println(accountPassword);
-                    if (!this.password.getText().equals(accountPassword)) {
-                        System.out.println("Incorrect Password");
-                        System.out.println("Password entered: " + this.password.getText() + "does not match password in db: " + accountPassword);
-                        return false;
-                    }
-                    String uuid = returnedItem.get("UUID").s();
-                    System.out.println(uuid);
-                    return true;
-                }
-            } catch (DynamoDbException e) {
-                System.out.println("EXCEPTION AT USERNAME");
-                System.err.println(e.getMessage());
-                System.exit(1);
+            String result = this.acController.validateLoginRequest(this.username.getText(), this.password.getText());
+            
+            if(result.equals("1")) {
+                System.out.println("Incorrect username (login view");
+                return false;
             }
-            System.out.println("Unable to submit request.");
-            return false;
+            else if(result.equals("2")) {
+                System.out.println("Incorrect password (login view)");
+                return false;
+            }
+            else if(result.equals("3")) {
+                System.out.println("Database error (login view)");
+            }
+            else{
+                return true;
+            }
         }
+        
+        return false;
     }
     
     @FXML
@@ -85,7 +74,7 @@ public class LoginView extends ViewUtility {
         if (checkLogin()) {
             this.switchToTaskScene(_event);
         } else {
-            this.errorLabel.setText("Incorrect Login");
+            this.errorLabel.setText("Incorrect username/password");
         }
     }
     
