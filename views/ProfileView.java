@@ -6,6 +6,7 @@ import com.sun.prism.paint.Color;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -49,7 +50,7 @@ public class ProfileView extends ViewUtil implements Initializable {
     private TextField cvv;
 
     @FXML
-    private ListView<String> profileListView = new ListView<>();
+    public ListView<String> profileListView = new ListView<>();
 
     @FXML
     private AnchorPane mainAnchorPane;
@@ -60,7 +61,6 @@ public class ProfileView extends ViewUtil implements Initializable {
     private JFXButton confirmEdit;
     @FXML
     private JFXButton cancelEdit;
-    
 
     @FXML
     public FontAwesomeIconView profileIcon;
@@ -75,7 +75,7 @@ public class ProfileView extends ViewUtil implements Initializable {
 
     @FXML
     public void taskButton(ActionEvent _event) throws IOException {
-        this.switchToTaskScene(_event);
+        this.switchToTaskScene(_event, this.user);
     }
 
     @Override
@@ -83,31 +83,28 @@ public class ProfileView extends ViewUtil implements Initializable {
         this.profileButton.setTextFill(Paint.valueOf("#ffa2a2"));
         this.profileIcon.setFill(Paint.valueOf("#ffa2a2"));
         textFields = new TextField[]{this.profileName, this.fullName, this.email, this.phone, this.street, this.zip, this.city, this.state, this.cardNumber, this.month, this.year, this.cvv};
-        readOnlyTextFields(); 
-        
+        readOnlyTextFields();
+
         Label placeholder = new Label();
         placeholder.getStyleClass().add("placeholder");
         placeholder.setText("Add a profile");
         this.profileListView.setPlaceholder(placeholder);
-
         
+
     }
 
     @FXML
     public void addProfile(ActionEvent _event) throws IOException {
         System.out.println("Adding Profile");
-        this.profileListView.getItems().add("test");
-        
         AddProfileView view = this.openPopupWindow(_event, "fxml/AddProfileFXML.fxml").getController();
         view.setListView(this.profileListView);
+        view.user = this.user;
     }
 
-    
     /**
-     * This method is for setting all text fields to read only.
-     * For some reason I can only change the background color of 
-     * the text fields through a css, so that's why the style class
-     * method is used.
+     * This method is for setting all text fields to read only. For some reason
+     * I can only change the background color of the text fields through a css,
+     * so that's why the style class method is used.
      */
     @FXML
     public void readOnlyTextFields() {
@@ -124,10 +121,9 @@ public class ProfileView extends ViewUtil implements Initializable {
     }
 
     /**
-     * This method is for setting all text fields to an editable state.
-     * For some reason I can only change the background color of 
-     * the text fields through a css, so that's why the style class
-     * method is used.
+     * This method is for setting all text fields to an editable state. For some
+     * reason I can only change the background color of the text fields through
+     * a css, so that's why the style class method is used.
      */
     @FXML
     public void editProfile() {
@@ -142,19 +138,20 @@ public class ProfileView extends ViewUtil implements Initializable {
         this.cancelEdit.setDisable(false);
         this.cancelEdit.setVisible(true);
     }
-    
-    @FXML 
+
+    @FXML
     public void confirmEdit() {
         readOnlyTextFields();
         //Send data to AWS and update list view here
     }
-    
-    @FXML 
+
+    @FXML
     public void cancelEdit() {
         readOnlyTextFields();
+        profileSelected();
         //Set text on textfields back to their original values
     }
-    
+
     @FXML
     public void deleteProfile() {
         String selectedItem = this.profileListView.getSelectionModel().getSelectedItem();
@@ -162,5 +159,13 @@ public class ProfileView extends ViewUtil implements Initializable {
         this.profileListView.getSelectionModel().clearSelection();
     }
     
+    @FXML
+    public void profileSelected() {
+        String selectedProfile = this.profileListView.getSelectionModel().getSelectedItem();
+        Map<String, Object> profileInfo = this.user.getProfiles().get(selectedProfile);
+        for (TextField textField : textFields) {
+            textField.setText(profileInfo.get(textField.getId()).toString());
+        }
+    }
 
 }

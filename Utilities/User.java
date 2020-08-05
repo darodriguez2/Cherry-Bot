@@ -5,30 +5,32 @@ import java.util.Map;
 
 
 public class User {
-    private String name;
-    private String email;
-    private String phone;
-    private String street;
-    private String zip;
-    private String city;
-    private String state;
-    private String cardNumber;
-    private String cvv;
-    private String month;
-    private String year;
     
-    public User(Map<String, String> credentials) {
-        this.name = credentials.get("name");
-        this.email = credentials.get("email");
-        this.phone = credentials.get("phone");
-        this.street = credentials.get("street");
-        this.zip = credentials.get("zip");
-        this.city = credentials.get("city");
-        this.state = credentials.get("state");
-        this.cardNumber = credentials.get("cardNumber");
-        this.cvv = credentials.get("cvv");
-        this.month = credentials.get("month");
-        this.year = credentials.get("year");
+    private String uuid;
+    private Map<String, Map<String, Object>> profiles;
+    
+    public User(String _uuid, Map<String, Map<String, Object>> _profiles) {
+        this.uuid = _uuid;
+        this.profiles = _profiles;
+    }
+
+    ////////////////////SETTERS//////////////////////////
+    public void setUuid(String _uuid) {
+        this.uuid = _uuid;
+    }
+
+    public void setProfiles(Map<String, Map<String, Object>> _profiles) {
+        this.profiles = _profiles;
+    }
+    
+    
+////////////////////GETTERS//////////////////////////
+    public String getUuid() {
+        return this.uuid;
+    }
+
+    public Map<String, Map<String, Object>> getProfiles() {
+        return this.profiles;
     }
     
 

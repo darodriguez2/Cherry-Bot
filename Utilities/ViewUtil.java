@@ -18,7 +18,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import views.AddTaskView;
+import views.ProfileView;
+import views.TaskView;
 
 /**
  *
@@ -28,6 +29,8 @@ public class ViewUtil {
     
     private double xOffset = 0;
     private double yOffset = 0;
+    
+    public User user;
 
     public FXMLLoader switchScenes(Event _event, String _fxml) throws IOException {
         FXMLLoader loader;
@@ -48,7 +51,7 @@ public class ViewUtil {
         return loader;
     }
     
-    public FXMLLoader switchToProfileScene(Event _event, String _fxml) throws IOException {
+    public FXMLLoader switchToProfileScene(Event _event, String _fxml, User _user) throws IOException {
         FXMLLoader loader;
         Parent parent;
         Scene sceneToSwitchTo;
@@ -56,6 +59,12 @@ public class ViewUtil {
 
         loader = new FXMLLoader(getClass().getClassLoader().getResource(_fxml));
         parent = loader.load();
+        ProfileView view = loader.getController();
+        view.user = _user;
+        System.out.println("Adding Profiles to profile list view");
+        for (String field : this.user.getProfiles().keySet()) {       
+            view.profileListView.getItems().add(field);
+        }
         sceneToSwitchTo = new Scene(parent);
         sceneToSwitchTo.getStylesheets().add("CSS/ProfileCSS.css");
         
@@ -68,7 +77,7 @@ public class ViewUtil {
         return loader;
     }
     
-    public FXMLLoader switchToTaskScene(Event _event) throws IOException {
+    public FXMLLoader switchToTaskScene(Event _event, User _user) throws IOException {
         String fxml = "fxml/TaskFXML.fxml";
         FXMLLoader loader;
         Parent parent;
@@ -77,6 +86,9 @@ public class ViewUtil {
 
         loader = new FXMLLoader(getClass().getClassLoader().getResource(fxml));
         parent = loader.load();
+        TaskView view = loader.getController();
+        view.user = _user;
+        System.out.println("uuid transferred to task view: " + view.user.getUuid());
         sceneToSwitchTo = new Scene(parent);
         sceneToSwitchTo.getStylesheets().add("CSS/mainPageCSS.css");;
 

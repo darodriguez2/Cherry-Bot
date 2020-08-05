@@ -5,6 +5,7 @@
 package Adapters;
 
 import Interfaces.DatabaseInterface;
+import java.util.Map;
 import translators.DynamoTranslator;
 
 
@@ -24,6 +25,16 @@ public class DatabaseAdapter implements DatabaseInterface{
     @Override
     public String validateLogin(String _username, String _password) {
         return DatabaseAdapter.TRANSLATOR.validateLogin(_username, _password);
+    }
+
+    @Override
+    public Map<String, Map<String, Object>> loadProfiles(String _uuid) {
+        return DatabaseAdapter.TRANSLATOR.loadProfiles(_uuid);
+    }
+
+    @Override
+    public boolean addProfile(Map<String, String> _profileInfo) {
+        return DatabaseAdapter.TRANSLATOR.addProfile(_profileInfo);
     }
     
 }

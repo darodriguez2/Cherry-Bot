@@ -115,7 +115,7 @@ public class TaskView extends ViewUtil implements Initializable  {
     
     @FXML
     public void profileButton(ActionEvent _event) throws IOException {
-        this.switchToProfileScene(_event, "fxml/ProfileFXML.fxml");
+        this.switchToProfileScene(_event, "fxml/ProfileFXML.fxml", this.user);
         
     }
     

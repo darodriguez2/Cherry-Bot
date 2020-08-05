@@ -56,7 +56,7 @@
       </AnchorPane>
       <AnchorPane layoutX="52.0" layoutY="99.0" prefHeight="602.0" prefWidth="1117.0" style="-fx-background-color: #500000;">
          <children>
-            <ListView fx:id="profileListView" layoutX="49.0" layoutY="86.0" prefHeight="284.0" prefWidth="465.0" />
+            <ListView fx:id="profileListView" layoutX="49.0" layoutY="86.0" onMouseClicked="#profileSelected" prefHeight="284.0" prefWidth="465.0" />
             <AnchorPane layoutX="587.0" layoutY="48.0" prefHeight="284.0" prefWidth="484.0" style="-fx-background-color: #666666;">
                <children>
                   <VBox layoutX="29.0" layoutY="3.0" prefHeight="265.0" prefWidth="47.0">

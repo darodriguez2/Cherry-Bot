@@ -13,16 +13,19 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.document.DynamoDB;
 import com.amazonaws.services.dynamodbv2.document.Item;
-import com.amazonaws.services.dynamodbv2.document.PutItemOutcome;
+import com.amazonaws.services.dynamodbv2.document.ItemCollection;
+import com.amazonaws.services.dynamodbv2.document.QueryOutcome;
 import com.amazonaws.services.dynamodbv2.document.Table;
 import com.amazonaws.services.dynamodbv2.document.spec.GetItemSpec;
+import com.amazonaws.services.dynamodbv2.document.spec.QuerySpec;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
-import com.amazonaws.services.dynamodbv2.model.GetItemResult;
 import java.security.GeneralSecurityException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class DynamoTranslator implements DatabaseInterface {
@@ -113,5 +116,58 @@ public class DynamoTranslator implements DatabaseInterface {
             System.err.println(e.getMessage());
             return "3";
         }
+    }
+
+    @Override
+    public Map<String, Map<String, Object>> loadProfiles(String _uuid) {
+        Table table = dynamoDB.getTable("UserProfiles");
+
+        //Create a query spec to query for all items with the specified uuid.
+        QuerySpec querySpec = new QuerySpec().withHashKey("uuid", _uuid);
+
+        //store query result in a collection of items that we can iterate through.
+        ItemCollection<QueryOutcome> items = table.query(querySpec);
+        Iterator<Item> iterator = items.iterator();
+        Item item;
+        Map<String, Map<String, Object>> profiles = new HashMap<>();
+
+        /**
+         * Each item in the item collection corresponds to a profile in the
+         * table. So we store each profile in a Map, with the key =
+         * profile name and value = profile map
+         */
+        while (iterator.hasNext()) {
+            item = iterator.next();
+            System.out.println(item);
+            profiles.put(item.asMap().get("profileName").toString(), item.asMap());
+        }
+        return profiles;
+    }
+
+    @Override
+    public boolean addProfile(Map<String, String> _profileInfo) {
+        System.out.println("Translator has recieved.....");
+        for (String field : _profileInfo.keySet()) {
+            System.out.println(field + ": " + _profileInfo.get(field));
+        }
+
+        Map<String, AttributeValue> attributes = new HashMap<>();
+        attributes.put("uuid", new AttributeValue().withS("1"));
+        attributes.put("profileName", new AttributeValue().withS(_profileInfo.get("profileName")));
+        attributes.put("zip", new AttributeValue().withS(_profileInfo.get("zip")));
+        attributes.put("cvv", new AttributeValue().withS(_profileInfo.get("cvv")));
+        attributes.put("month", new AttributeValue().withS(_profileInfo.get("month")));
+        attributes.put("phone", new AttributeValue().withS(_profileInfo.get("phone")));
+        attributes.put("city", new AttributeValue().withS(_profileInfo.get("city")));
+        attributes.put("year", new AttributeValue().withS(_profileInfo.get("year")));
+        attributes.put("street", new AttributeValue().withS(_profileInfo.get("street")));
+        attributes.put("fullName", new AttributeValue().withS(_profileInfo.get("fullName")));
+        attributes.put("email", new AttributeValue().withS(_profileInfo.get("email")));
+        attributes.put("cardNumber", new AttributeValue().withS(_profileInfo.get("cardNumber")));
+        attributes.put("state", new AttributeValue().withS(_profileInfo.get("state")));
+
+        //Map<String, AttributeValue> encryptedData = this.encrypt.encryptRecord("LoginCredentials", "Username", "0", attributes);
+        client.putItem("UserProfiles", attributes);
+        return true;
     }
 }

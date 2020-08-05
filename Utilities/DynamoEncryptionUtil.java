@@ -77,6 +77,16 @@ public class DynamoEncryptionUtil {
         return encryptedRecord;
     }
     
+    
+    /**
+     * Decrypts item that is passed and returns a map of decrypted attributes
+     * @param _tableName
+     * @param _primaryKey
+     * @param _sortKey
+     * @param _item
+     * @return
+     * @throws GeneralSecurityException 
+     */
     public Map<String, AttributeValue> decryptItem(String _tableName, String _primaryKey, String _sortKey, Item _item) throws GeneralSecurityException {
         EncryptionContext encryptionContext;
         //Build Encryption Context with or without a sortKey depending on the value that is passed. 
