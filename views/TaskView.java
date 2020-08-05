@@ -28,8 +28,7 @@ import javafx.scene.control.TreeTableView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
-import views.AddTaskView;
-import Utilities.ViewUtility;
+import Utilities.ViewUtil;
 import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.scene.paint.Paint;
@@ -39,7 +38,7 @@ import testing.UI.Task;
  *
  * @author diego
  */
-public class TaskView extends ViewUtility implements Initializable  {
+public class TaskView extends ViewUtil implements Initializable  {
 
     @FXML
     private JFXTreeTableView<Task> taskView;

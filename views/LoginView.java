@@ -6,7 +6,7 @@
  */
 package views;
 
-import Utilities.ViewUtility;
+import Utilities.ViewUtil;
 import controllers.AccountController;
 import java.io.IOException;
 import javafx.event.ActionEvent;
@@ -15,7 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
-public class LoginView extends ViewUtility {
+public class LoginView extends ViewUtil {
 
     @FXML
     private TextField username;
@@ -35,6 +35,7 @@ public class LoginView extends ViewUtility {
     private AccountController acController = new AccountController();
 
     protected String uuid;
+    
     public boolean checkLogin() {
         if (this.username.getText().isEmpty() || this.password.getText().isEmpty()) {
             return false;

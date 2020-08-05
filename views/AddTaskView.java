@@ -5,7 +5,7 @@
  */
 package views;
 
-import Utilities.ViewUtility;
+import Utilities.ViewUtil;
 import com.jfoenix.controls.JFXTreeTableView;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -20,7 +20,7 @@ import javafx.stage.Stage;
 
 import testing.UI.*;
 
-public class AddTaskView extends ViewUtility implements Initializable {
+public class AddTaskView extends ViewUtil implements Initializable {
 
     @FXML
     ComboBox selectStore;

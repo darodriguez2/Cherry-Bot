@@ -1,120 +1,117 @@
 /**
  * AWS DynamoDB translator for communicating with DynamoDB. Translates information coming to and from database.
- * This is the ONLY java class allowed to communicate with DynamoDB. 
- * All request MUST BE routed through adapter. Only the adapter communicates directly with this translator. 
+ * This is the ONLY java class allowed to communicate with DynamoDB.
+ * All request MUST BE routed through adapter. Only the adapter communicates directly with this translator.
+ *
  * @author Diego Rodriguez
  */
-
 package translators;
 
 import Interfaces.DatabaseInterface;
+import Utilities.DynamoEncryptionUtil;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
+import com.amazonaws.services.dynamodbv2.document.DynamoDB;
+import com.amazonaws.services.dynamodbv2.document.Item;
+import com.amazonaws.services.dynamodbv2.document.PutItemOutcome;
+import com.amazonaws.services.dynamodbv2.document.Table;
+import com.amazonaws.services.dynamodbv2.document.spec.GetItemSpec;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.amazonaws.services.dynamodbv2.model.GetItemResult;
+import java.security.GeneralSecurityException;
 import java.util.HashMap;
 import java.util.Map;
-import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
-import software.amazon.awssdk.services.dynamodb.DynamoDbClientBuilder;
-import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
-import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
-import software.amazon.awssdk.services.dynamodb.model.GetItemRequest;
-import software.amazon.awssdk.services.dynamodb.model.PutItemRequest;
-import software.amazon.awssdk.services.dynamodb.model.ResourceNotFoundException;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.json.JSONObject;
 
 public class DynamoTranslator implements DatabaseInterface {
-    
-    private DynamoDbClientBuilder builder = DynamoDbClient.builder();
-    private DynamoDbClient client = builder.build();
-    
-    
+
+    private final AmazonDynamoDB client = AmazonDynamoDBClientBuilder.defaultClient();
+    private final DynamoDB dynamoDB = new DynamoDB(client);
+    private final DynamoEncryptionUtil encrypt = new DynamoEncryptionUtil();
+
     @Override
     public boolean checkUsernameExists(String _username) {
-        Map<String, AttributeValue> keyToGet = new HashMap<>();
-        keyToGet.put("Username", AttributeValue.builder().s(_username).build());
-        GetItemRequest request = GetItemRequest.builder().key(keyToGet).tableName("LoginCredentials").build();
-        try {
-            Map<String, AttributeValue> returnedItem = this.client.getItem(request).item();
+        Table table = dynamoDB.getTable("LoginCredentials");
 
-            if (returnedItem.isEmpty()) {
+        GetItemSpec spec = new GetItemSpec().withPrimaryKey("Username", _username);
+        try {
+            System.out.println("Attempting to read the item...");
+            Item outcome = table.getItem(spec);
+            System.out.println("GetItem succeeded: " + outcome);
+            if (outcome == null) {
                 System.out.println("Username does not exist");
                 return true;
             } else {
                 System.out.println("Username exists");
                 return false;
             }
-        } catch (DynamoDbException e) {
-            System.out.println("EXCEPTION AT USERNAME");
+        } catch (Exception e) {
+            System.err.println("Unable to read item");
             System.err.println(e.getMessage());
-            System.exit(1);
+            return false;
         }
-        System.out.println("Unable to submit request.");
-        return false;
     }
-    
+
     @Override
     public boolean createAccount(String _username, String _password, String _uuid) {
-        Map<String, AttributeValue> itemAttributes = new HashMap<>();
-                itemAttributes.put("Username", AttributeValue.builder().s(_username).build());
-                itemAttributes.put("Password", AttributeValue.builder().s(_password).build());
-                itemAttributes.put("UUID", AttributeValue.builder().s(_uuid).build());
-                PutItemRequest request = PutItemRequest.builder().tableName("LoginCredentials").item(itemAttributes).build();
-                try {
-                    client.putItem(request);
-                    System.out.println( "LoginCredentials was successfully updated");
+        Map<String, AttributeValue> attributes = new HashMap<>();
+        attributes.put("Username", new AttributeValue().withS(_username));
+        attributes.put("Password", new AttributeValue().withS(_password));
+        attributes.put("UUID", new AttributeValue().withS(_uuid));
 
-                } catch (ResourceNotFoundException e) {
-                    System.err.format("Error: The table \"%s\" can't be found.\n", "LoginCredentials");
-                    System.err.println("Be sure that it exists and that you've typed its name correctly!");
-                    System.exit(1);
-                    return false;
-                } catch (DynamoDbException e) {
-                    System.err.println(e.getMessage());
-                    System.exit(1);
-                    return false;
-                }
-                return true;
+        try {
+            Map<String, AttributeValue> encryptedData = this.encrypt.encryptRecord("LoginCredentials", "Username", "0", attributes);
+            client.putItem("LoginCredentials", encryptedData);;
+            System.out.println("Encrypted recorded added");
+            return true;
+        } catch (GeneralSecurityException ex) {
+            Logger.getLogger(DynamoTranslator.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
-    
+
     /**
-     * Method used for validating login in login view
-     * Returns 1 for incorrect username, returns 2 for incorrect password, returns uuid if the login credentials are valid.
-     * Returns 3 if there is an error with database connection (Try/Catch block catches an error).
+     * Method used for validating login in login view Returns 1 for incorrect
+     * username, returns 2 for incorrect password, returns uuid if the login
+     * credentials are valid. Returns 3 if there is an error with database
+     * connection (Try/Catch block catches an error).
+     *
      * @param _username
      * @param _password
-     * @return 
+     * @return
      */
     @Override
     public String validateLogin(String _username, String _password) {
-        String uuid;
-        String passwordInDatabase;
-        
-        Map<String, AttributeValue> keyToGet = new HashMap<>();
-            keyToGet.put("Username", AttributeValue.builder().s(_username).build());
-            GetItemRequest request = GetItemRequest.builder().key(keyToGet).tableName("LoginCredentials").build();
-            try {
-                Map<String, AttributeValue> returnedItem = this.client.getItem(request).item();
-
-                if (returnedItem.isEmpty()) {
-                    System.out.println("Incorrect Username (translator)");
-                    return "1";
+        Table table = dynamoDB.getTable("LoginCredentials");
+        GetItemSpec spec = new GetItemSpec().withPrimaryKey("Username", _username);
+        try {
+            System.out.println("Attempting to read the item from table...");
+            Item tableItem = table.getItem(spec);
+            System.out.println("Encrypted item from table: " + tableItem);
+            if (tableItem == null) {
+                System.out.println("Incorrect username");
+                return "1";
+            } else {
+                Map<String, AttributeValue> decryptedItem = this.encrypt.decryptItem("LoginCredentials", "Username", "0", tableItem);
+                JSONObject passwordObj = new JSONObject(decryptedItem.get("Password").toString());
+                String decryptedPassword = passwordObj.getString("S").toString();
+                if (!decryptedPassword.equals(_password)) {
+                    System.out.println("Incorrect password/Password in database: " + decryptedPassword + " matches password given: " + _password);
+                    return "2";
                 } else {
-                    //code for getting username, might use later 7/24
-                    //String username = returnedItem.get("Username").s();
-                    passwordInDatabase = returnedItem.get("Password").s();
-                    System.out.println(passwordInDatabase);
-                    if (!_password.equals(passwordInDatabase)) {
-                        System.out.println("Incorrect Password");
-                        System.out.println("Password entered: " + _password + "does not match password in db: " + passwordInDatabase);
-                        return "2";
-                    }
-                    uuid = returnedItem.get("UUID").s();
-                    System.out.println(uuid);
-                    return uuid;
+                    System.out.println("Password in database: " + decryptedPassword + " matches password given: " + _password);
+                    JSONObject uuidObj = new JSONObject(decryptedItem.get("UUID").toString());
+                    String decryptedUUID = uuidObj.getString("S").toString();
+                    System.out.println("Returning uuid: " + decryptedUUID);
+                    return decryptedUUID;
                 }
-            } catch (DynamoDbException e) {
-                System.out.println("EXCEPTION AT USERNAME");
-                System.err.println(e.getMessage());
-                System.exit(1);
             }
-            System.out.println("Unable to submit request.");
+        } catch (Exception e) {
+            System.err.println("Error is thrown (try catch block in validateLogin)");
+            System.err.println(e.getMessage());
             return "3";
+        }
     }
 }

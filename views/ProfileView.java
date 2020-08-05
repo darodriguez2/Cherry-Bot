@@ -1,6 +1,6 @@
 package views;
 
-import Utilities.ViewUtility;
+import Utilities.ViewUtil;
 import com.jfoenix.controls.JFXButton;
 import com.sun.prism.paint.Color;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -20,7 +20,7 @@ import javafx.scene.paint.Paint;
  *
  * @author darod
  */
-public class ProfileView extends ViewUtility implements Initializable {
+public class ProfileView extends ViewUtil implements Initializable {
 
     @FXML
     private TextField profileName;
