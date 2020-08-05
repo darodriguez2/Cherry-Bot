@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="mainAnchorPane" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: #3d0000;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="testing.UI.DriverView">
+<AnchorPane id="AnchorPane" fx:id="mainAnchorPane" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: #3d0000;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.TaskView">
    <children>
       <AnchorPane layoutX="26.0" layoutY="111.0" opacity="0.7" prefHeight="469.0" prefWidth="1148.0" style="-fx-background-color: white;" />
       <AnchorPane layoutX="768.0" layoutY="580.0" opacity="0.7" prefHeight="55.0" prefWidth="406.0" style="-fx-background-color: white;" />

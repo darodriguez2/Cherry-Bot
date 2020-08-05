@@ -24,7 +24,7 @@ import views.AddTaskView;
  *
  * @author darod
  */
-public class ViewUtility {
+public class ViewUtil {
     
     private double xOffset = 0;
     private double yOffset = 0;

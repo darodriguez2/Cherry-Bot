@@ -27,11 +27,12 @@ public class StartApplication extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Parent root;
-        root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/MainPageFXML.fxml"));
+        root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/TaskFXML.fxml"));
 
         stage.initStyle(StageStyle.TRANSPARENT);
         Scene scene = new Scene(root);
         scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
+        scene.getStylesheets().add("CSS/mainPageCSS.css");
 
         root.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override

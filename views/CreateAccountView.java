@@ -1,12 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * View that corresponds with the create account UI.
+ * CONTROLLER: AccountController
+ *
+ * @author darod
  */
 package views;
 
-import Utilities.ViewUtility;
+import Utilities.ViewUtil;
+import controllers.AccountController;
 import java.io.IOException;
+import java.util.UUID;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -17,7 +20,7 @@ import javafx.scene.layout.AnchorPane;
  *
  * @author darod
  */
-public class CreateAccountView extends ViewUtility {
+public class CreateAccountView extends ViewUtil {
 
     @FXML
     TextField username;
@@ -34,25 +37,40 @@ public class CreateAccountView extends ViewUtility {
     @FXML
     AnchorPane mainAnchorPane;
 
+    private AccountController acController = new AccountController();
+
     public void confirm(ActionEvent _event) throws IOException {
-        if (checkPassword()) {
-            LoginView view = this.switchScenes(_event, "fxml/LoginFXML.fxml").getController();
-            view.errorLabel.setText("Account creation successful");
+        if (checkUsername()) {
+            if (checkPassword()) {
+                UUID uuid = UUID.randomUUID();
+                Boolean result = this.acController.createAccountRequest(this.username.getText(), this.password.getText(), uuid.toString());
+                if (result) {
+                    LoginView view = this.switchScenes(_event, "fxml/LoginFXML.fxml").getController();
+                    view.errorLabel.setText("Account creation successful");
+                } else {
+                    System.out.println("Error Creating Account");
+                }
+            } else {
+                this.errorLabel.setText("Passwords do not match");
+            }
         } else {
-            this.errorLabel.setText("Passwords do not match");
+            this.errorLabel.setText("Username already taken");
         }
     }
 
     public boolean checkPassword() {
-        if (!this.password.getText().equals(this.confirmPassword.getText())) {
+        if (!this.password.getText().equals(this.confirmPassword.getText()) || this.password.getText().isEmpty() || this.confirmPassword.getText().isEmpty()) {
             return false;
         }
         return true;
     }
 
     public boolean checkUsername() {
-        //here we want to check if the username already exists in the database
-        return true;
+        if (this.username.getText().isEmpty()) {
+            return false;
+        } else {
+            return this.acController.checkUsernameRequest(this.username.getText());
+        }
     }
 
     public void back(ActionEvent _event) throws IOException {

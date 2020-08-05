@@ -5,7 +5,7 @@
  */
 package views;
 
-import Utilities.ViewUtility;
+import Utilities.ViewUtil;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -27,7 +27,7 @@ import javafx.scene.layout.AnchorPane;
  *
  * @author darod
  */
-public class AddProfileView extends ViewUtility implements Initializable {
+public class AddProfileView extends ViewUtil implements Initializable {
 
     @FXML
     private TextField profileName;
