@@ -19,4 +19,7 @@ public interface DatabaseInterface {
     
     public boolean addProfile(Map<String, String> _profileInfo);
     
+    public boolean deleteProfile(String _uuid, String _profileName);
+            
+    
 }

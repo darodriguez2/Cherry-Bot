@@ -11,11 +11,13 @@ import Interfaces.DatabaseInterface;
 import Utilities.DynamoEncryptionUtil;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
+import com.amazonaws.services.dynamodbv2.document.DeleteItemOutcome;
 import com.amazonaws.services.dynamodbv2.document.DynamoDB;
 import com.amazonaws.services.dynamodbv2.document.Item;
 import com.amazonaws.services.dynamodbv2.document.ItemCollection;
 import com.amazonaws.services.dynamodbv2.document.QueryOutcome;
 import com.amazonaws.services.dynamodbv2.document.Table;
+import com.amazonaws.services.dynamodbv2.document.spec.DeleteItemSpec;
 import com.amazonaws.services.dynamodbv2.document.spec.GetItemSpec;
 import com.amazonaws.services.dynamodbv2.document.spec.QuerySpec;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
@@ -92,7 +94,6 @@ public class DynamoTranslator implements DatabaseInterface {
         try {
             System.out.println("Attempting to read the item from table...");
             Item tableItem = table.getItem(spec);
-            System.out.println("Encrypted item from table: " + tableItem);
             if (tableItem == null) {
                 System.out.println("Incorrect username");
                 return "1";
@@ -118,6 +119,13 @@ public class DynamoTranslator implements DatabaseInterface {
         }
     }
 
+    /**
+     * Returns map in the format of Map<ProfileName,
+     * Profiles<attributeName, value>> that corresponds with a given uuid.
+     *
+     * @param _uuid
+     * @return
+     */
     @Override
     public Map<String, Map<String, Object>> loadProfiles(String _uuid) {
         Table table = dynamoDB.getTable("UserProfiles");
@@ -130,20 +138,45 @@ public class DynamoTranslator implements DatabaseInterface {
         Iterator<Item> iterator = items.iterator();
         Item item;
         Map<String, Map<String, Object>> profiles = new HashMap<>();
+        Map<String, AttributeValue> decryptedItem;
+        JSONObject currentAttribute;
 
         /**
          * Each item in the item collection corresponds to a profile in the
-         * table. So we store each profile in a Map, with the key =
-         * profile name and value = profile map
+         * table. So we store each profile in a Map, with the key = profile name
+         * and value = profile map
          */
         while (iterator.hasNext()) {
             item = iterator.next();
-            System.out.println(item);
-            profiles.put(item.asMap().get("profileName").toString(), item.asMap());
+
+            /**
+             * Within this try catch we want to take our decrypted item and
+             * store it in a format that is easily accessible for other classes
+             * to use. In this case we are storing it into a Map<String, Object>
+             * to do so we need to parse with JSONObject.
+             */
+            try {
+                decryptedItem = this.encrypt.decryptItem("UserProfiles", "uuid", "profileName", item);
+                Map<String, Object> currentProfile = new HashMap<>();
+                for (String key : decryptedItem.keySet()) {
+                    currentAttribute = new JSONObject(decryptedItem.get(key).toString());
+                    currentProfile.put(key, currentAttribute.get("S"));
+                }
+                profiles.put(currentProfile.get("profileName").toString(), currentProfile);
+            } catch (GeneralSecurityException | JSONException ex) {
+                Logger.getLogger(DynamoTranslator.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+        
         return profiles;
     }
 
+    /**
+     * Puts profile information into DynamoDB
+     *
+     * @param _profileInfo
+     * @return
+     */
     @Override
     public boolean addProfile(Map<String, String> _profileInfo) {
         System.out.println("Translator has recieved.....");
@@ -151,23 +184,67 @@ public class DynamoTranslator implements DatabaseInterface {
             System.out.println(field + ": " + _profileInfo.get(field));
         }
 
-        Map<String, AttributeValue> attributes = new HashMap<>();
-        attributes.put("uuid", new AttributeValue().withS("1"));
-        attributes.put("profileName", new AttributeValue().withS(_profileInfo.get("profileName")));
-        attributes.put("zip", new AttributeValue().withS(_profileInfo.get("zip")));
-        attributes.put("cvv", new AttributeValue().withS(_profileInfo.get("cvv")));
-        attributes.put("month", new AttributeValue().withS(_profileInfo.get("month")));
-        attributes.put("phone", new AttributeValue().withS(_profileInfo.get("phone")));
-        attributes.put("city", new AttributeValue().withS(_profileInfo.get("city")));
-        attributes.put("year", new AttributeValue().withS(_profileInfo.get("year")));
-        attributes.put("street", new AttributeValue().withS(_profileInfo.get("street")));
-        attributes.put("fullName", new AttributeValue().withS(_profileInfo.get("fullName")));
-        attributes.put("email", new AttributeValue().withS(_profileInfo.get("email")));
-        attributes.put("cardNumber", new AttributeValue().withS(_profileInfo.get("cardNumber")));
-        attributes.put("state", new AttributeValue().withS(_profileInfo.get("state")));
+        if (checkIfProfileNameExists(_profileInfo.get("uuid"), _profileInfo.get("profileName"))) {
+            return false;
+        } else {
+            Map<String, AttributeValue> attributes = new HashMap<>();
+            attributes.put("uuid", new AttributeValue().withS(_profileInfo.get("uuid")));
+            attributes.put("profileName", new AttributeValue().withS(_profileInfo.get("profileName")));
+            attributes.put("zip", new AttributeValue().withS(_profileInfo.get("zip")));
+            attributes.put("cvv", new AttributeValue().withS(_profileInfo.get("cvv")));
+            attributes.put("month", new AttributeValue().withS(_profileInfo.get("month")));
+            attributes.put("phone", new AttributeValue().withS(_profileInfo.get("phone")));
+            attributes.put("city", new AttributeValue().withS(_profileInfo.get("city")));
+            attributes.put("year", new AttributeValue().withS(_profileInfo.get("year")));
+            attributes.put("street", new AttributeValue().withS(_profileInfo.get("street")));
+            attributes.put("fullName", new AttributeValue().withS(_profileInfo.get("fullName")));
+            attributes.put("email", new AttributeValue().withS(_profileInfo.get("email")));
+            attributes.put("cardNumber", new AttributeValue().withS(_profileInfo.get("cardNumber")));
+            attributes.put("state", new AttributeValue().withS(_profileInfo.get("state")));
 
-        //Map<String, AttributeValue> encryptedData = this.encrypt.encryptRecord("LoginCredentials", "Username", "0", attributes);
-        client.putItem("UserProfiles", attributes);
-        return true;
+            Map<String, AttributeValue> encryptedData = new HashMap<>();
+            try {
+                encryptedData = this.encrypt.encryptRecord("UserProfiles", "uuid", "profileName", attributes);
+            } catch (GeneralSecurityException ex) {
+                Logger.getLogger(DynamoTranslator.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            client.putItem("UserProfiles", encryptedData);
+            return true;
+        }
+
     }
+
+    public boolean checkIfProfileNameExists(String _uuid, String _profileName) {
+        Table table = dynamoDB.getTable("UserProfiles");
+
+        GetItemSpec spec = new GetItemSpec().withPrimaryKey("uuid", _uuid, "profileName", _profileName);
+        try {
+            Item outcome = table.getItem(spec);
+            if (outcome == null) {
+                System.out.println("Profile name does not exist");
+                return false;
+            } else {
+                System.out.println("Profile name exists");
+                return true;
+            }
+        } catch (Exception e) {
+            System.err.println("Unable to read item");
+            System.err.println(e.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public boolean deleteProfile(String _uuid, String _profileName) {
+        Table table = dynamoDB.getTable("UserProfiles");
+        DeleteItemSpec spec = new DeleteItemSpec().withPrimaryKey("uuid", _uuid, "profileName", _profileName);
+
+        DeleteItemOutcome outcome = table.deleteItem(spec);
+        if (outcome == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 }

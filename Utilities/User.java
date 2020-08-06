@@ -6,8 +6,8 @@ import java.util.Map;
 
 public class User {
     
-    private String uuid;
-    private Map<String, Map<String, Object>> profiles;
+    public String uuid;
+    public Map<String, Map<String, Object>> profiles;
     
     public User(String _uuid, Map<String, Map<String, Object>> _profiles) {
         this.uuid = _uuid;

@@ -64,8 +64,8 @@ public class LoginView extends ViewUtil {
     @FXML
     public void confirm(ActionEvent _event) throws IOException {
         if (checkLogin()) {
-            this.user = new User(this.uuid, this.acController.loadProfileRequest("1"));
-            System.out.println(this.user.getUuid());
+            this.user = new User(this.uuid, this.acController.loadProfileRequest(this.uuid));
+            System.out.println("Printing profiles for user in login view, will print nothing if empty");
             for (String field : this.user.getProfiles().keySet()) {
                 System.out.println(field + ": " + this.user.getProfiles().get(field));
             }

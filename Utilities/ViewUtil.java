@@ -5,10 +5,14 @@
  */
 package Utilities;
 
+import static com.sun.javafx.application.PlatformImpl.addListener;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -18,6 +22,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import views.AddProfileView;
 import views.ProfileView;
 import views.TaskView;
 
@@ -26,10 +31,10 @@ import views.TaskView;
  * @author darod
  */
 public class ViewUtil {
-    
+
     private double xOffset = 0;
     private double yOffset = 0;
-    
+
     public User user;
 
     public FXMLLoader switchScenes(Event _event, String _fxml) throws IOException {
@@ -44,13 +49,13 @@ public class ViewUtil {
 
         referenceStage = (Stage) ((Node) _event.getSource()).getScene().getWindow();
         referenceStage.setScene(sceneToSwitchTo);
-        
+
         makeStageMovable(parent, referenceStage);
-        
+
         referenceStage.show();
         return loader;
     }
-    
+
     public FXMLLoader switchToProfileScene(Event _event, String _fxml, User _user) throws IOException {
         FXMLLoader loader;
         Parent parent;
@@ -62,21 +67,21 @@ public class ViewUtil {
         ProfileView view = loader.getController();
         view.user = _user;
         System.out.println("Adding Profiles to profile list view");
-        for (String field : this.user.getProfiles().keySet()) {       
+        for (String field : this.user.getProfiles().keySet()) {
             view.profileListView.getItems().add(field);
         }
         sceneToSwitchTo = new Scene(parent);
         sceneToSwitchTo.getStylesheets().add("CSS/ProfileCSS.css");
-        
+
         referenceStage = (Stage) ((Node) _event.getSource()).getScene().getWindow();
         referenceStage.setScene(sceneToSwitchTo);
-        
+
         makeStageMovable(parent, referenceStage);
-        
+
         referenceStage.show();
         return loader;
     }
-    
+
     public FXMLLoader switchToTaskScene(Event _event, User _user) throws IOException {
         String fxml = "fxml/TaskFXML.fxml";
         FXMLLoader loader;
@@ -94,26 +99,45 @@ public class ViewUtil {
 
         referenceStage = (Stage) ((Node) _event.getSource()).getScene().getWindow();
         referenceStage.setScene(sceneToSwitchTo);
-        
+
         makeStageMovable(parent, referenceStage);
-        
+
         referenceStage.show();
         return loader;
     }
-    
+
     public FXMLLoader openPopupWindow(Event _event, String _fxml) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(_fxml));
         Parent parent = loader.load();
+
         Stage stage = new Stage();
         stage.initStyle(StageStyle.TRANSPARENT);
 
         makeStageMovable(parent, stage);
-        
+
         stage.setScene(new Scene(parent));
         stage.show();
-        
+
         return loader;
     }
+    
+    public FXMLLoader openAddProfileWindow(Event _event, String _fxml, ProfileView _view) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(_fxml));
+        Parent parent = loader.load();
+
+        AddProfileView view = loader.getController();
+        view.setProfileView(_view);
+        Stage stage = new Stage();
+        stage.initStyle(StageStyle.TRANSPARENT);
+
+        makeStageMovable(parent, stage);
+
+        stage.setScene(new Scene(parent));
+        stage.show();
+
+        return loader;
+    }
+    
 
     @FXML
     public void closeApplication(AnchorPane _mainAnchorPane) {
@@ -124,14 +148,14 @@ public class ViewUtil {
             System.exit(0);
         });
     }
-    
+
     public void closeWindow(AnchorPane _mainAnchorPane) {
         Stage stage = (Stage) _mainAnchorPane.getScene().getWindow();
         stage.close();
     }
-    
+
     public void makeStageMovable(Parent _parent, Stage _stage) {
-         _parent.setOnMousePressed(new EventHandler<MouseEvent>() {
+        _parent.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 xOffset = _stage.getX() - event.getScreenX();

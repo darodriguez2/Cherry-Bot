@@ -5,8 +5,8 @@
  */
 package views;
 
-import Utilities.User;
 import Utilities.ViewUtil;
+import com.jfoenix.controls.JFXButton;
 import controllers.ProfileController;
 import java.io.BufferedReader;
 import java.io.File;
@@ -65,13 +65,17 @@ public class AddProfileView extends ViewUtil implements Initializable {
 
     @FXML
     public ListView profileListView;
-    
+
     @FXML
     private Label errorLabel;
-    
+
+    @FXML
+    public JFXButton addButton;
+
     private TextField[] textFields;
-    
+
     private ProfileController pc = new ProfileController();
+    private ProfileView pv = new ProfileView();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -86,21 +90,26 @@ public class AddProfileView extends ViewUtil implements Initializable {
     public void cancelAddProfile() {
         this.closeWindow(this.mainAnchorPane);
     }
-    
-    public void addProfile() {
-        String result = checkFields();
-        if(!result.equals("PASS"))
-            this.errorLabel.setText(result);
-        else {
+
+    public void addProfile() throws IOException {
+        String checkFieldsResult = checkFields();
+        if (!checkFieldsResult.equals("PASS")) {
+            this.errorLabel.setText(checkFieldsResult);
+        } else {
             Map<String, String> profileInfo = new HashMap<>();
             for (TextField textField : textFields) {
                 profileInfo.put(textField.getId(), textField.getText());
             }
             profileInfo.put(this.state.getId(), this.state.getValue().toString());
-            this.pc.addProfileRequest(profileInfo);
-            this.profileListView.getItems().add(this.profileName.getText());
-            this.user = new User(this.user.getUuid(), this.pc.loadProfileRequest("1"));
-            this.closeWindow(this.mainAnchorPane);
+            profileInfo.put("uuid", this.user.getUuid());
+            Boolean addProfileResult = this.pc.addProfileRequest(profileInfo);
+            if (addProfileResult) {
+                this.profileListView.getItems().add(this.profileName.getText());
+                this.pv.reloadProfiles();
+                this.closeWindow(this.mainAnchorPane);
+            }
+            else
+                this.errorLabel.setText("Profile name already exists, please use a different one.");
         }
     }
 
@@ -108,27 +117,31 @@ public class AddProfileView extends ViewUtil implements Initializable {
         this.profileListView = _listView;
     }
 
+    public void setProfileView(ProfileView _view) {
+        this.pv = _view;
+    }
+
     public String checkFields() {
         //check for any blank fields
         for (TextField textField : textFields) {
-            if(textField.getText().equals("") || textField.getText().isEmpty()) {
+            if (textField.getText().equals("") || textField.getText().isEmpty()) {
                 return "Cannot leave any fields blank";
             }
         }
-        if(this.zip.getText().length() != 5)
+        if (this.zip.getText().length() != 5) {
             return "Invalid Zip";
-        else if(this.month.getText().length() != 2 || this.year.getText().length() != 2)
+        } else if (this.month.getText().length() != 2 || this.year.getText().length() != 2) {
             return "Month and year must be 2 digits";
-        else if(this.cvv.getText().length() != 3)
+        } else if (this.cvv.getText().length() != 3) {
             return "Invalid cvv, must be 3 digits";
-        else if(this.cardNumber.getText().length() != 19) 
-            return "Invalid card number";
-        else if(!this.email.getText().contains("@"))
+        } else if (this.cardNumber.getText().length() != 16) {
+            return "Invalid card number, please make sure there are no spaces"; //NOTE: issue with JSONObject class if a string has spaces!!! will throw error!
+        } else if (!this.email.getText().contains("@")) {
             return "Invalid email";
-        else return "PASS";
-    }   
-    
-    
+        } else {
+            return "PASS";
+        }
+    }
 
     public void addStatesToComboBox() throws FileNotFoundException, IOException {
         File file = new File("C:\\Users\\darod\\Documents\\NetBeansProjects\\Cherry_V1\\src\\Artifacts\\fiftyStates.txt");

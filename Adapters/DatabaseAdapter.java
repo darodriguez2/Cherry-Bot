@@ -36,5 +36,10 @@ public class DatabaseAdapter implements DatabaseInterface{
     public boolean addProfile(Map<String, String> _profileInfo) {
         return DatabaseAdapter.TRANSLATOR.addProfile(_profileInfo);
     }
+
+    @Override
+    public boolean deleteProfile(String _uuid, String _profileName) {
+        return DatabaseAdapter.TRANSLATOR.deleteProfile(_uuid, _profileName);
+    }
     
 }
