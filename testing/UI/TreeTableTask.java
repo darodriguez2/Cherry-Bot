@@ -13,18 +13,20 @@ import javafx.beans.property.SimpleStringProperty;
  *
  * @author diego
  */
-public class Task extends RecursiveTreeObject<Task>{
+public class TreeTableTask extends RecursiveTreeObject<TreeTableTask>{
 
     public SimpleStringProperty site;
     public SimpleStringProperty profile;
     public SimpleStringProperty item;
     public SimpleStringProperty status;
+    public String uuid;
 
-    public Task(String site, String profile, String item, String status) {
-        this.site = new SimpleStringProperty(site);
-        this.profile = new SimpleStringProperty(profile);
-        this.item = new SimpleStringProperty(item);
-        this.status = new SimpleStringProperty(status);
+    public TreeTableTask(String _uuid, String _site, String _profile, String _item, String _status) {
+        this.uuid = _uuid;
+        this.site = new SimpleStringProperty(_site);
+        this.profile = new SimpleStringProperty(_profile);
+        this.item = new SimpleStringProperty(_item);
+        this.status = new SimpleStringProperty(_status);
     }
 
     public SimpleStringProperty getSite() {
@@ -41,6 +43,10 @@ public class Task extends RecursiveTreeObject<Task>{
     
     public SimpleStringProperty getStatus() {
         return this.status;
+    }
+    
+    public String getUUID() {
+        return this.uuid;
     }
     
 }

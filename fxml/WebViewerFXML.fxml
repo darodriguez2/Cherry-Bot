@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.web.WebView?>
+
+<AnchorPane id="AnchorPane" fx:id="mainAnchorPane" prefHeight="626.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.WebViewerView">
+   <children>
+      <AnchorPane layoutX="-2.0" prefHeight="90.0" prefWidth="612.0" style="-fx-background-color: #404040;">
+         <children>
+            <Label layoutX="194.0" layoutY="26.0" text="Cherry Web View " textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Semibold" size="27.0" />
+               </font>
+            </Label>
+            <JFXButton contentDisplay="RIGHT" layoutX="448.0" layoutY="12.0" onAction="#closeWindow" prefHeight="70.0" prefWidth="164.0" style="-fx-background-color: #404040;" text="Exit" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Semibold" size="16.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIconView fill="#eeeeee" glyphName="TIMES" size="16" />
+               </graphic>
+            </JFXButton>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="-2.0" layoutY="90.0" prefHeight="536.0" prefWidth="612.0" style="-fx-background-color: #500000;">
+         <children>
+            <WebView fx:id="webView" layoutX="83.0" layoutY="14.0" prefHeight="393.0" prefWidth="446.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

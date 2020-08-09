@@ -93,6 +93,7 @@ public class ViewUtil {
         parent = loader.load();
         TaskView view = loader.getController();
         view.user = _user;
+        view.refreshTreeTableView();
         System.out.println("uuid transferred to task view: " + view.user.getUuid());
         sceneToSwitchTo = new Scene(parent);
         sceneToSwitchTo.getStylesheets().add("CSS/mainPageCSS.css");;
@@ -106,7 +107,7 @@ public class ViewUtil {
         return loader;
     }
 
-    public FXMLLoader openPopupWindow(Event _event, String _fxml) throws IOException {
+    public FXMLLoader openPopupWindow(String _fxml) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(_fxml));
         Parent parent = loader.load();
 

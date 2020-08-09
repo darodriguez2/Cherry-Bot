@@ -21,8 +21,8 @@
       </AnchorPane>
       <AnchorPane layoutY="78.0" prefHeight="118.0" prefWidth="733.0" style="-fx-background-color: #500000;">
          <children>
-            <ComboBox fx:id="selectStore" layoutX="58.0" layoutY="52.0" prefHeight="28.0" prefWidth="119.0" />
-            <Label layoutX="58.0" layoutY="33.0" text="Select Store *" textFill="WHITE">
+            <ComboBox fx:id="selectSite" layoutX="58.0" layoutY="52.0" prefHeight="28.0" prefWidth="119.0" />
+            <Label layoutX="58.0" layoutY="33.0" text="Select Site *" textFill="WHITE">
                <font>
                   <Font name="Segoe UI Semibold" size="13.0" />
                </font>
