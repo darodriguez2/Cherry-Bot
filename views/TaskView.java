@@ -1,5 +1,6 @@
 /**
- * Task view for controlling task scene and facilitating all actions on that scene. 
+ * Task view for controlling task scene and facilitating all actions on that scene.
+ *
  * @author diego
  */
 package views;
@@ -35,7 +36,6 @@ import java.util.Iterator;
 import javafx.scene.paint.Paint;
 import Utilities.TreeTableTask;
 
-
 public class TaskView extends ViewUtil implements Initializable {
 
     @FXML
@@ -63,7 +63,7 @@ public class TaskView extends ViewUtil implements Initializable {
 
     private double xOffset = 0;
     private double yOffset = 0;
-    
+
     private boolean tasksRunning;
 
     @Override
@@ -72,7 +72,7 @@ public class TaskView extends ViewUtil implements Initializable {
         deselectRowEventListener();
         this.treeTableView.setPlaceholder(new Label("Add a task"));
         task = FXCollections.observableArrayList();
-        task.add(new TreeTableTask("uuid", "Supreme", "Profile 1", "Relief Box Logo", "testing")); //Dummy task
+        //task.add(new TreeTableTask("uuid", "Supreme", "Profile 1", "Relief Box Logo", "testing")); //Dummy task
         root = new RecursiveTreeItem<>(task, RecursiveTreeObject::getChildren);
         this.treeTableView.getColumns().setAll(this.site, this.profile, this.item, this.status);
         this.treeTableView.setRoot(root);
@@ -108,14 +108,14 @@ public class TaskView extends ViewUtil implements Initializable {
     }
 
     /**
-     * Iterates through all tasks on the tree table view, removing them one by one from the user object.
-     * Then clears the tree.
+     * Iterates through all tasks on the tree table view, removing them one by
+     * one from the user object. Then clears the tree.
      */
     @FXML
     public void deleteAll() {
         Iterator<TreeItem<TreeTableTask>> iterator = this.treeTableView.getRoot().getChildren().iterator();
         String taskID;
-        while(iterator.hasNext()) {
+        while (iterator.hasNext()) {
             taskID = iterator.next().getValue().getUUID();
             this.user.getTasks().remove(taskID);
         }
@@ -123,47 +123,52 @@ public class TaskView extends ViewUtil implements Initializable {
     }
 
     /**
-     * Iterates through all tasks from the tree table view,
-     * gets the uuid property of each task,
-     * then starts the task thread object within the user object with that corresponding uuid.
+     * Iterates through all tasks from the tree table view, gets the uuid
+     * property of each task, then starts the task thread object within the user
+     * object with that corresponding uuid.
      */
     @FXML
     public void startAll() {
         Iterator<TreeItem<TreeTableTask>> iterator = this.treeTableView.getRoot().getChildren().iterator();
         String taskID;
-        while(iterator.hasNext()) {      
-            taskID = iterator.next().getValue().getUUID();
+        while (iterator.hasNext()) {
+            TreeItem<TreeTableTask> treeItem = iterator.next();
+            treeItem.getValue().getStatus().set("Task Started");
+            taskID = treeItem.getValue().getUUID();
             System.out.println("getting task with id: " + taskID);
             this.user.getTasks().get(taskID).start();
             this.tasksRunning = true;
         }
     }
-    
+
     //Interrupts all task threads causing them to stop.
     @FXML
     public void stopAll() throws IOException {
-        if(this.tasksRunning) {
+        if (this.tasksRunning) {
             Iterator<TreeItem<TreeTableTask>> iterator = this.treeTableView.getRoot().getChildren().iterator();
             String taskID;
             while (iterator.hasNext()) {
-                taskID = iterator.next().getValue().getUUID();
+                TreeItem<TreeTableTask> treeItem = iterator.next();
+                treeItem.getValue().getStatus().set("Task Ended");
+                taskID = treeItem.getValue().getUUID();
                 System.out.println("Interrupting task with id: " + taskID);
                 this.user.getTasks().get(taskID).interrupt();
-                
+
                 /**
-                 * IMPORTANT: Because we are using stopping the threads with interrupt, the threads
-                 * cannot be restarted again, so we are removing them from the user object and replacing
-                 * them with a new thread with the exact same paymentProfile and taskInfo.
+                 * IMPORTANT: Because we are using stopping the threads with
+                 * interrupt, the threads cannot be restarted again, so we are
+                 * removing them from the user object and replacing them with a
+                 * new thread with the exact same paymentProfile and taskInfo.
                  * This allows them to be started again.
                  */
                 TaskThread oldTaskThread = this.user.getTasks().get(taskID);
                 this.user.getTasks().remove(taskID);
                 TaskThread newTaskThread = new TaskThread(oldTaskThread.getPaymentProfile(), oldTaskThread.getTaskInfo());
                 this.user.getTasks().put(taskID, newTaskThread);
-            } 
+            }
             this.tasksRunning = false;
         }
-        
+
     }
 
     @FXML
@@ -180,28 +185,24 @@ public class TaskView extends ViewUtil implements Initializable {
 
     @FXML
     public void googleLogin() throws IOException {
-        TreeTableTask selectedTask = this.treeTableView.getSelectionModel().getSelectedItem().getValue();
-        System.out.println(selectedTask.getUUID());
+        TreeItem<TreeTableTask> treeItem = this.treeTableView.getSelectionModel().getSelectedItem();
+        TreeTableTask selectedTask = treeItem.getValue();
+        selectedTask.getStatus().set("Logging into Gmail");
         String taskThreadID = selectedTask.getUUID();
+        
         TaskThread thread = this.user.getTasks().get(taskThreadID);
-        WebViewerView view = new WebViewerView();
-
-        this.openWebView("fxml/WebViewerFXML.fxml", view);
-        thread.setWebViewer(view);
-        thread.googleLogin();
+        thread.googleLogin(treeItem);
     }
 
     @FXML
     public void watchYoutube() throws IOException {
-        TreeTableTask selectedTask = this.treeTableView.getSelectionModel().getSelectedItem().getValue();
-        System.out.println(selectedTask.getUUID());
+        TreeItem<TreeTableTask> treeItem = this.treeTableView.getSelectionModel().getSelectedItem();
+        TreeTableTask selectedTask = treeItem.getValue();
+        selectedTask.getStatus().set("Watching Youtube");
         String taskThreadID = selectedTask.getUUID();
+        
         TaskThread thread = this.user.getTasks().get(taskThreadID);
-        WebViewerView view = new WebViewerView();
-
-        this.openWebView("fxml/WebViewerFXML.fxml", view);
-        thread.setWebViewer(view);
-        thread.watchYoutube();
+        thread.watchYoutube(treeItem);
     }
 
     @FXML

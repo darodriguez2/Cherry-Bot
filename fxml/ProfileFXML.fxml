@@ -114,7 +114,7 @@
                               <Font name="Segoe UI Semibold" size="12.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="profileName" prefHeight="29.0" prefWidth="120.0" text="test">
+                        <TextField fx:id="profileName" prefHeight="29.0" prefWidth="120.0">
                            <font>
                               <Font name="Segoe UI Semibold" size="12.0" />
                            </font></TextField>
@@ -123,7 +123,7 @@
                               <Font name="Segoe UI Semibold" size="12.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="email" prefHeight="29.0" prefWidth="47.0" style="-fx-background-color: white;" text="test">
+                        <TextField fx:id="email" prefHeight="29.0" prefWidth="47.0" style="-fx-background-color: white;">
                            <font>
                               <Font name="Segoe UI Semibold" size="12.0" />
                            </font></TextField>
@@ -132,7 +132,7 @@
                               <Font name="Segoe UI Semibold" size="12.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="street" prefHeight="29.0" prefWidth="47.0" style="-fx-background-color: white;" text="test">
+                        <TextField fx:id="street" prefHeight="29.0" prefWidth="47.0" style="-fx-background-color: white;">
                            <font>
                               <Font name="Segoe UI Semibold" size="12.0" />
                            </font></TextField>
@@ -141,7 +141,7 @@
                               <Font name="Segoe UI Semibold" size="12.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="zip" prefHeight="29.0" prefWidth="47.0" style="-fx-background-color: white;" text="test">
+                        <TextField fx:id="zip" prefHeight="29.0" prefWidth="47.0" style="-fx-background-color: white;">
                            <font>
                               <Font name="Segoe UI Semibold" size="12.0" />
                            </font></TextField>
@@ -154,7 +154,7 @@
                               <Font name="Segoe UI Semibold" size="12.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="fullName" prefHeight="29.0" prefWidth="47.0" style="-fx-background-color: white;" text="test">
+                        <TextField fx:id="fullName" prefHeight="29.0" prefWidth="47.0" style="-fx-background-color: white;">
                            <font>
                               <Font name="Segoe UI Semibold" size="12.0" />
                            </font></TextField>
@@ -163,7 +163,7 @@
                               <Font name="Segoe UI Semibold" size="12.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="phone" prefHeight="29.0" prefWidth="47.0" style="-fx-background-color: white;" text="test">
+                        <TextField fx:id="phone" prefHeight="29.0" prefWidth="47.0" style="-fx-background-color: white;">
                            <font>
                               <Font name="Segoe UI Semibold" size="12.0" />
                            </font></TextField>
@@ -172,7 +172,7 @@
                               <Font name="Segoe UI Semibold" size="12.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="city" prefHeight="29.0" prefWidth="47.0" style="-fx-background-color: white;" text="test">
+                        <TextField fx:id="city" prefHeight="29.0" prefWidth="47.0" style="-fx-background-color: white;">
                            <font>
                               <Font name="Segoe UI Semibold" size="12.0" />
                            </font></TextField>
@@ -181,7 +181,7 @@
                               <Font name="Segoe UI Semibold" size="12.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="state" prefHeight="29.0" prefWidth="47.0" style="-fx-background-color: white;" text="test">
+                        <TextField fx:id="state" prefHeight="29.0" prefWidth="47.0" style="-fx-background-color: white;">
                            <font>
                               <Font name="Segoe UI Semibold" size="12.0" />
                            </font></TextField>
@@ -211,10 +211,10 @@
                         <Font name="Segoe UI Semibold" size="12.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="cardNumber" layoutX="141.0" layoutY="8.0" prefHeight="29.0" prefWidth="169.0" style="-fx-background-color: white;" text="test" />
-                  <TextField fx:id="cvv" layoutX="310.0" layoutY="72.0" prefHeight="29.0" prefWidth="47.0" style="-fx-background-color: white;" text="test" />
-                  <TextField fx:id="year" layoutX="202.0" layoutY="72.0" prefHeight="29.0" prefWidth="47.0" style="-fx-background-color: white;" text="test" />
-                  <TextField fx:id="month" layoutX="85.0" layoutY="72.0" prefHeight="29.0" prefWidth="47.0" style="-fx-background-color: white;" text="test" />
+                  <TextField fx:id="cardNumber" layoutX="141.0" layoutY="8.0" prefHeight="29.0" prefWidth="169.0" style="-fx-background-color: white;" />
+                  <TextField fx:id="cvv" layoutX="310.0" layoutY="72.0" prefHeight="29.0" prefWidth="47.0" style="-fx-background-color: white;" />
+                  <TextField fx:id="year" layoutX="202.0" layoutY="72.0" prefHeight="29.0" prefWidth="47.0" style="-fx-background-color: white;" />
+                  <TextField fx:id="month" layoutX="85.0" layoutY="72.0" prefHeight="29.0" prefWidth="47.0" style="-fx-background-color: white;" />
                   <Label fx:id="errorLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="123.0" layoutY="118.0" prefHeight="17.0" prefWidth="238.0" textFill="#ffdd00">
                      <font>
                         <Font name="Segoe UI Semibold" size="12.0" />
