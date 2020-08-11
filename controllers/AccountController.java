@@ -5,6 +5,7 @@
 package controllers;
 
 import Adapters.DatabaseAdapter;
+import java.util.Map;
 import translators.DynamoTranslator;
 
 
@@ -21,6 +22,10 @@ public class AccountController {
     
     public String validateLoginRequest(String _username, String _password) {
         return this.dbAdapter.validateLogin(_username, _password);
+    }
+    
+    public Map<String, Map<String, Object>> loadProfileRequest(String _uuid) {
+        return this.dbAdapter.loadProfiles(_uuid);
     }
     
 }

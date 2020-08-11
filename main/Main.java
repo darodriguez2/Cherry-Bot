@@ -1,9 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Main class for starting application.
+ * @author darod
  */
-package testing.UI;
+package main;
 
 import javafx.application.Application;
 import static javafx.application.Application.launch;
@@ -15,11 +14,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-/**
- *
- * @author diego
- */
-public class DriverMain extends Application {
+public class Main extends Application {
 
     private double xOffset = 0;
     private double yOffset = 0;

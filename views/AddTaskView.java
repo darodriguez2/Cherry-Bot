@@ -1,14 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * AddTaskView that corresponds with the addTask UI.
+ * @author darod
  */
 package views;
 
+import Utilities.TreeTableTask;
+import Utilities.TaskThread;
 import Utilities.ViewUtil;
 import com.jfoenix.controls.JFXTreeTableView;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
+import java.util.UUID;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
@@ -18,12 +23,11 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import testing.UI.*;
 
 public class AddTaskView extends ViewUtil implements Initializable {
 
     @FXML
-    ComboBox selectStore;
+    ComboBox selectSite;
     @FXML
     ComboBox selectProfile;
     @FXML
@@ -52,15 +56,18 @@ public class AddTaskView extends ViewUtil implements Initializable {
     AnchorPane mainAnchorPane;
 
     @FXML
-    JFXTreeTableView<Task> taskView;
+    JFXTreeTableView<TreeTableTask> treeTableView;
 
     @FXML
     Label errorLabel;
+    
+    protected TaskView tv = new TaskView();
+    protected Map<String, String> taskInfo;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //ONLY SUPREME IS SUPPORTED...FOR NOW. 6/14/2020
-        this.selectStore.getItems().add("Supreme");
+        this.selectSite.getItems().add("Supreme");
 
         this.selectProfile.getItems().add(getProfiles());
         this.itemType.getItems().addAll("Clothing", "Accessory");
@@ -92,9 +99,22 @@ public class AddTaskView extends ViewUtil implements Initializable {
 
     public void addTask() {
         if (checkFields()) {
-            Task taskToAdd = new Task(this.selectStore.getValue().toString(), this.selectProfile.getValue().toString(), this.itemKeyword.getText(), "Ready to start");
-            TreeItem<Task> addTask = new TreeItem<>(taskToAdd);
-            this.taskView.getRoot().getChildren().add(addTask);
+            String uuid = UUID.randomUUID().toString();
+            System.out.println("adding task UUID: " + uuid);
+            TreeTableTask taskToAdd = new TreeTableTask(uuid, this.selectSite.getValue().toString(), this.selectProfile.getValue().toString(), this.itemKeyword.getText(), "Ready to start");
+            TreeItem<TreeTableTask> addTask = new TreeItem<>(taskToAdd);
+            this.tv.user.addTreeTableTask(addTask);
+            this.treeTableView.getRoot().getChildren().add(addTask);
+            this.taskInfo = new HashMap<>();
+            this.taskInfo.put("site", this.selectSite.getValue().toString());
+            this.taskInfo.put("profile", this.selectProfile.getValue().toString());
+            this.taskInfo.put("itemType", this.itemType.getValue().toString());
+            this.taskInfo.put("itemKeyword", this.itemKeyword.getText());
+            if(this.itemType.getValue().equals("Clothing")) {
+                this.taskInfo.put("size", this.size.getValue().toString());
+                this.taskInfo.put("color", this.color.getText());
+            }
+            this.tv.user.addTask(uuid, new TaskThread(this.tv.user.getProfiles().get(this.selectProfile.getValue().toString()), taskInfo));
             closeWindow();
         } else {
             this.errorLabel.setText("Please fill all required fields");
@@ -105,13 +125,13 @@ public class AddTaskView extends ViewUtil implements Initializable {
         if (this.itemType.getValue() != null) {
             switch (this.itemType.getValue().toString()) {
                 case "Clothing":
-                    if (this.selectStore.getValue() == null || this.selectProfile.getValue() == null || this.itemKeyword.getText() == null
+                    if (this.selectSite.getValue() == null || this.selectProfile.getValue() == null || this.itemKeyword.getText() == null
                             || this.color.getText().equals("") || this.size.getValue() == null) {
                         return false;
                     }
                     break;
                 case "Accessory":
-                    if (this.selectStore.getValue() == null || this.selectProfile.getValue() == null || this.itemKeyword.getText() == null) {
+                    if (this.selectSite.getValue() == null || this.selectProfile.getValue() == null || this.itemKeyword.getText() == null) {
                         return false;
                     }
                     break;
@@ -132,7 +152,17 @@ public class AddTaskView extends ViewUtil implements Initializable {
         this.closeWindow(this.mainAnchorPane);
     }
 
-    public void setTaskView(JFXTreeTableView<Task> _taskView) {
-        this.taskView = _taskView;
+    public void setTreeTableView(JFXTreeTableView<TreeTableTask> _treeTableView) {
+        this.treeTableView = _treeTableView;
+    }
+    
+    public void setTaskView(TaskView _tv) {
+        this.tv = _tv;
+    }
+    
+    public void addProfilesTOComboBox(Set<String> _profileNames) {
+        for(String profileName : _profileNames) {
+            this.selectProfile.getItems().add(profileName);
+        }
     }
 }

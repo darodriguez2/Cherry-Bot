@@ -4,6 +4,8 @@
  */
 package Interfaces;
 
+import java.util.Map;
+
 
 public interface DatabaseInterface {
     
@@ -12,5 +14,12 @@ public interface DatabaseInterface {
     public boolean createAccount(String _username, String _password, String _uuid);
     
     public String validateLogin(String _username, String _password);
+    
+    public Map<String, Map<String, Object>> loadProfiles(String _uuid);
+    
+    public boolean addProfile(Map<String, String> _profileInfo);
+    
+    public boolean deleteProfile(String _uuid, String _profileName);
+            
     
 }

@@ -1,7 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Adapter for handling all information going/coming to and from the Supreme translator. 
+ * @author darod
  */
 package Adapters;
 
@@ -10,10 +9,6 @@ import java.util.Map;
 import org.json.JSONArray;
 import translators.SupremeTranslator;
 
-/**
- *
- * @author darod
- */
 public class SupremeAdapter implements SupremeInterface {
     private static final SupremeInterface TRANSLATOR = new SupremeTranslator();
     

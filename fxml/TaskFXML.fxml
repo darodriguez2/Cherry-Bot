@@ -5,6 +5,7 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.effect.GaussianBlur?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -13,54 +14,54 @@
 
 <AnchorPane id="AnchorPane" fx:id="mainAnchorPane" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: #3d0000;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.TaskView">
    <children>
-      <AnchorPane layoutX="26.0" layoutY="111.0" opacity="0.7" prefHeight="469.0" prefWidth="1148.0" style="-fx-background-color: white;" />
-      <AnchorPane layoutX="768.0" layoutY="580.0" opacity="0.7" prefHeight="55.0" prefWidth="406.0" style="-fx-background-color: white;" />
-      <AnchorPane layoutX="31.0" layoutY="116.0" prefHeight="459.0" prefWidth="1138.0" style="-fx-background-color: #500000;">
+      <AnchorPane layoutX="26.0" layoutY="163.0" opacity="0.7" prefHeight="469.0" prefWidth="1148.0" style="-fx-background-color: white;" />
+      <AnchorPane layoutX="397.0" layoutY="632.0" opacity="0.7" prefHeight="55.0" prefWidth="406.0" style="-fx-background-color: white;" />
+      <AnchorPane layoutX="31.0" layoutY="168.0" prefHeight="459.0" prefWidth="1138.0" style="-fx-background-color: #500000;">
          <children>
             <StackPane layoutX="15.0" layoutY="18.0" prefHeight="420.0" prefWidth="1108.0" style="-fx-background-color: #ff8080;">
                <effect>
                   <GaussianBlur radius="0.0" />
                </effect>
             </StackPane>
-            <JFXTreeTableView fx:id="taskView" layoutX="15.0" layoutY="18.0" prefHeight="423.0" prefWidth="1111.0">
+            <JFXTreeTableView fx:id="treeTableView" layoutX="15.0" layoutY="18.0" prefHeight="423.0" prefWidth="1111.0">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
             </JFXTreeTableView>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="773.0" layoutY="575.0" prefHeight="55.0" prefWidth="396.0" style="-fx-background-color: #500000;">
+      <AnchorPane layoutX="402.0" layoutY="627.0" prefHeight="55.0" prefWidth="396.0" style="-fx-background-color: #500000;">
          <children>
-            <JFXButton buttonType="RAISED" layoutX="14.0" layoutY="15.0" onAction="#startButtonAction" ripplerFill="#ffa2a2" style="-fx-background-color: #404040;" text=" Start" textFill="#f8f8f8">
+            <JFXButton buttonType="RAISED" layoutX="198.0" layoutY="15.0" onAction="#solveCaptcha" ripplerFill="#ffa2a2" style="-fx-background-color: #404040;" text="Solve" textFill="#f8f8f8">
                <font>
                   <Font name="Segoe UI Semibold" size="14.0" />
                </font>
                <graphic>
-                  <FontAwesomeIconView fill="#f8f8f8" glyphName="PLAY" size="14" />
+                  <FontAwesomeIconView fill="WHITE" glyphName="PUZZLE_PIECE" size="14" />
                </graphic>
             </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="110.0" layoutY="15.0" onAction="#stopButtonAction" ripplerFill="#ffa2a2" style="-fx-background-color: #404040;" text=" Stop" textFill="#f8f8f8">
-               <font>
-                  <Font name="Segoe UI Semibold" size="14.0" />
-               </font>
-               <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="STOP" size="14" />
-               </graphic>
-            </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="198.0" layoutY="15.0" onAction="#addButton" ripplerFill="#ffa2a2" style="-fx-background-color: #404040;" text=" Add" textFill="#f8f8f8">
-               <font>
-                  <Font name="Segoe UI Semibold" size="14.0" />
-               </font>
-               <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="14" />
-               </graphic>
-            </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="286.0" layoutY="15.0" onAction="#deleteButton" ripplerFill="#ffa2a2" style="-fx-background-color: #404040;" text="Delete" textFill="#f8f8f8">
+            <JFXButton buttonType="RAISED" layoutX="286.0" layoutY="15.0" onAction="#delete" ripplerFill="#ffa2a2" style="-fx-background-color: #404040;" text="Delete" textFill="#f8f8f8">
                <font>
                   <Font name="Segoe UI Semibold" size="14.0" />
                </font>
                <graphic>
                   <FontAwesomeIconView fill="WHITE" glyphName="TRASH" size="14" text="" wrappingWidth="18.0" />
+               </graphic>
+            </JFXButton>
+            <JFXButton buttonType="RAISED" layoutX="14.0" layoutY="13.0" onAction="#googleLogin" ripplerFill="#ffa2a2" style="-fx-background-color: #404040;" text="Login" textFill="#f8f8f8">
+               <font>
+                  <Font name="Segoe UI Semibold" size="14.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="GOOGLE" size="14" />
+               </graphic>
+            </JFXButton>
+            <JFXButton buttonType="RAISED" layoutX="106.0" layoutY="13.0" onAction="#watchYoutube" ripplerFill="#ffa2a2" style="-fx-background-color: #404040;" text="Watch" textFill="#f8f8f8">
+               <font>
+                  <Font name="Segoe UI Semibold" size="14.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="YOUTUBE" size="14" />
                </graphic>
             </JFXButton>
          </children>
@@ -102,6 +103,49 @@
                      </graphic>
                   </JFXButton>
                   <AnchorPane prefHeight="200.0" prefWidth="10.0" />
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="26.0" layoutY="107.0" prefHeight="56.0" prefWidth="591.0" style="-fx-background-color: #500000;">
+         <children>
+            <HBox alignment="CENTER" layoutY="1.0" prefHeight="55.0" prefWidth="589.0">
+               <children>
+                  <JFXButton buttonType="RAISED" onAction="#add" prefHeight="30.0" prefWidth="108.0" ripplerFill="#ffa2a2" style="-fx-background-color: #404040;" text="Add" textFill="#f8f8f8">
+                     <font>
+                        <Font name="Segoe UI Semibold" size="14.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="14" />
+                     </graphic>
+                  </JFXButton>
+                  <TextArea opacity="0.0" prefHeight="55.0" prefWidth="40.0" />
+                  <JFXButton buttonType="RAISED" onAction="#deleteAll" prefHeight="30.0" prefWidth="108.0" ripplerFill="#ffa2a2" style="-fx-background-color: #404040;" text="Delete All" textFill="#f8f8f8">
+                     <font>
+                        <Font name="Segoe UI Semibold" size="14.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="TRASH" size="14" />
+                     </graphic>
+                  </JFXButton>
+                  <TextArea opacity="0.0" prefHeight="55.0" prefWidth="40.0" />
+                  <JFXButton buttonType="RAISED" onAction="#startAll" prefHeight="30.0" prefWidth="108.0" ripplerFill="#ffa2a2" style="-fx-background-color: #404040;" text=" Start All" textFill="#f8f8f8">
+                     <font>
+                        <Font name="Segoe UI Semibold" size="14.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="#f8f8f8" glyphName="PLAY" size="14" />
+                     </graphic>
+                  </JFXButton>
+                  <TextArea opacity="0.0" prefHeight="55.0" prefWidth="40.0" />
+                  <JFXButton buttonType="RAISED" onAction="#stopAll" prefHeight="30.0" prefWidth="108.0" ripplerFill="#ffa2a2" style="-fx-background-color: #404040;" text=" Stop All" textFill="#f8f8f8">
+                     <font>
+                        <Font name="Segoe UI Semibold" size="14.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="STOP" size="14" />
+                     </graphic>
+                  </JFXButton>
                </children>
             </HBox>
          </children>

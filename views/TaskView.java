@@ -1,10 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Task view for controlling task scene and facilitating all actions on that scene. 
+ * @author diego
  */
 package views;
 
+import Utilities.TaskThread;
 import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
@@ -31,70 +31,139 @@ import javafx.util.Callback;
 import Utilities.ViewUtil;
 import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import java.util.Iterator;
 import javafx.scene.paint.Paint;
-import testing.UI.Task;
+import Utilities.TreeTableTask;
 
-/**
- *
- * @author diego
- */
-public class TaskView extends ViewUtil implements Initializable  {
+
+public class TaskView extends ViewUtil implements Initializable {
 
     @FXML
-    private JFXTreeTableView<Task> taskView;
+    private JFXTreeTableView<TreeTableTask> treeTableView;
 
     @FXML
-    private ObservableList<Task> task;
+    private ObservableList<TreeTableTask> task;
 
     @FXML
-    private TreeItem<Task> root;
+    private TreeItem<TreeTableTask> root;
 
     @FXML
     private AnchorPane mainAnchorPane;
-    
+
     @FXML
     public JFXButton taskButton;
-    
+
     @FXML
     public FontAwesomeIconView taskIcon;
 
-    private JFXTreeTableColumn<Task, String> site;
-    private JFXTreeTableColumn<Task, String> item;
-    private JFXTreeTableColumn<Task, String> profile;
-    private JFXTreeTableColumn<Task, String> status;
+    private JFXTreeTableColumn<TreeTableTask, String> site;
+    private JFXTreeTableColumn<TreeTableTask, String> item;
+    private JFXTreeTableColumn<TreeTableTask, String> profile;
+    private JFXTreeTableColumn<TreeTableTask, String> status;
 
     private double xOffset = 0;
     private double yOffset = 0;
+    
+    private boolean tasksRunning;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         createColumns();
         deselectRowEventListener();
-        this.taskView.setPlaceholder(new Label("Add a task"));
+        this.treeTableView.setPlaceholder(new Label("Add a task"));
         task = FXCollections.observableArrayList();
-        task.add(new Task("Supreme", "Profile 1", "Relief Box Logo", "testing"));
+        task.add(new TreeTableTask("uuid", "Supreme", "Profile 1", "Relief Box Logo", "testing")); //Dummy task
         root = new RecursiveTreeItem<>(task, RecursiveTreeObject::getChildren);
-        this.taskView.getColumns().setAll(this.site, this.profile, this.item, this.status);
-        this.taskView.setRoot(root);
-        this.taskView.setShowRoot(false);
-        
-        this.taskButton.setTextFill( Paint.valueOf("#ffa2a2"));
+        this.treeTableView.getColumns().setAll(this.site, this.profile, this.item, this.status);
+        this.treeTableView.setRoot(root);
+        this.treeTableView.setShowRoot(false);
+
+        this.taskButton.setTextFill(Paint.valueOf("#ffa2a2"));
         this.taskIcon.setFill(Paint.valueOf("#ffa2a2"));
+    }
 
+    //This methods need to be called whenever a new task is added
+    public void refreshTreeTableView() {
+        for (TreeItem<TreeTableTask> treeTableTask : this.user.getTreeTableTasks()) {
+            this.treeTableView.getRoot().getChildren().add(treeTableTask);
+        }
     }
 
     @FXML
-    public void addButton(ActionEvent _event) throws IOException {
-        FXMLLoader loader = this.openPopupWindow(_event, "fxml/AddTaskFXML2.fxml");
+    public void add(ActionEvent _event) throws IOException {
+        FXMLLoader loader = this.openPopupWindow("fxml/AddTaskFXML2.fxml");
         AddTaskView view = loader.getController();
-        view.setTaskView(this.taskView);
+        view.setTreeTableView(this.treeTableView);
+        view.setTaskView(this);
+        view.addProfilesTOComboBox(this.user.getProfiles().keySet());
     }
 
+    //When a task is deleted from the tree table view it must also be removed from the user object's task property
     @FXML
-    public void deleteButton() {
+    public void delete() {
         System.out.println("attempting to delete");
-        TreeItem<Task> taskToDelete = this.taskView.getSelectionModel().getSelectedItem();
-        this.taskView.getRoot().getChildren().remove(taskToDelete);
+        TreeItem<TreeTableTask> taskToDelete = this.treeTableView.getSelectionModel().getSelectedItem();
+        this.treeTableView.getRoot().getChildren().remove(taskToDelete);
+        this.user.getTasks().remove(taskToDelete.getValue().getUUID());
+    }
+
+    /**
+     * Iterates through all tasks on the tree table view, removing them one by one from the user object.
+     * Then clears the tree.
+     */
+    @FXML
+    public void deleteAll() {
+        Iterator<TreeItem<TreeTableTask>> iterator = this.treeTableView.getRoot().getChildren().iterator();
+        String taskID;
+        while(iterator.hasNext()) {
+            taskID = iterator.next().getValue().getUUID();
+            this.user.getTasks().remove(taskID);
+        }
+        this.treeTableView.getRoot().getChildren().clear();
+    }
+
+    /**
+     * Iterates through all tasks from the tree table view,
+     * gets the uuid property of each task,
+     * then starts the task thread object within the user object with that corresponding uuid.
+     */
+    @FXML
+    public void startAll() {
+        Iterator<TreeItem<TreeTableTask>> iterator = this.treeTableView.getRoot().getChildren().iterator();
+        String taskID;
+        while(iterator.hasNext()) {      
+            taskID = iterator.next().getValue().getUUID();
+            System.out.println("getting task with id: " + taskID);
+            this.user.getTasks().get(taskID).start();
+            this.tasksRunning = true;
+        }
+    }
+    
+    //Interrupts all task threads causing them to stop.
+    @FXML
+    public void stopAll() throws IOException {
+        if(this.tasksRunning) {
+            Iterator<TreeItem<TreeTableTask>> iterator = this.treeTableView.getRoot().getChildren().iterator();
+            String taskID;
+            while (iterator.hasNext()) {
+                taskID = iterator.next().getValue().getUUID();
+                System.out.println("Interrupting task with id: " + taskID);
+                this.user.getTasks().get(taskID).interrupt();
+                
+                /**
+                 * IMPORTANT: Because we are using stopping the threads with interrupt, the threads
+                 * cannot be restarted again, so we are removing them from the user object and replacing
+                 * them with a new thread with the exact same paymentProfile and taskInfo.
+                 * This allows them to be started again.
+                 */
+                TaskThread oldTaskThread = this.user.getTasks().get(taskID);
+                this.user.getTasks().remove(taskID);
+                TaskThread newTaskThread = new TaskThread(oldTaskThread.getPaymentProfile(), oldTaskThread.getTaskInfo());
+                this.user.getTasks().put(taskID, newTaskThread);
+            } 
+            this.tasksRunning = false;
+        }
+        
     }
 
     @FXML
@@ -104,78 +173,97 @@ public class TaskView extends ViewUtil implements Initializable  {
     }
 
     @FXML
-    public void startButtonAction() {
-
-    }
-
-    @FXML
-    public void stopButtonAction() {
-
-    }
-    
-    @FXML
     public void profileButton(ActionEvent _event) throws IOException {
-        this.switchToProfileScene(_event, "fxml/ProfileFXML.fxml");
-        
-    }
-    
-    
-    /////////////////////TABLE CLASSES//////////////////////////////
+        this.switchToProfileScene(_event, "fxml/ProfileFXML.fxml", this.user);
 
+    }
+
+    @FXML
+    public void googleLogin() throws IOException {
+        TreeTableTask selectedTask = this.treeTableView.getSelectionModel().getSelectedItem().getValue();
+        System.out.println(selectedTask.getUUID());
+        String taskThreadID = selectedTask.getUUID();
+        TaskThread thread = this.user.getTasks().get(taskThreadID);
+        WebViewerView view = new WebViewerView();
+
+        this.openWebView("fxml/WebViewerFXML.fxml", view);
+        thread.setWebViewer(view);
+        thread.googleLogin();
+    }
+
+    @FXML
+    public void watchYoutube() throws IOException {
+        TreeTableTask selectedTask = this.treeTableView.getSelectionModel().getSelectedItem().getValue();
+        System.out.println(selectedTask.getUUID());
+        String taskThreadID = selectedTask.getUUID();
+        TaskThread thread = this.user.getTasks().get(taskThreadID);
+        WebViewerView view = new WebViewerView();
+
+        this.openWebView("fxml/WebViewerFXML.fxml", view);
+        thread.setWebViewer(view);
+        thread.watchYoutube();
+    }
+
+    @FXML
+    public void solveCaptcha() {
+        //will implement when supreme webstore
+    }
+
+    /////////////////////TABLE METHODS//////////////////////////////
     @FXML
     public JFXTreeTableView getTreeTableView() {
-        return this.taskView;
+        return this.treeTableView;
     }
 
     public void createColumns() {
         this.site = new JFXTreeTableColumn<>("Site");
-        site.setPrefWidth(taskView.getPrefWidth() / 4);
-        site.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Task, String>, ObservableValue<String>>() {
+        site.setPrefWidth(treeTableView.getPrefWidth() / 4);
+        site.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<TreeTableTask, String>, ObservableValue<String>>() {
             @Override
-            public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<Task, String> param) {
+            public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<TreeTableTask, String> param) {
                 return param.getValue().getValue().site;
             }
         });
 
         this.profile = new JFXTreeTableColumn<>("Profile");
-        profile.setPrefWidth(taskView.getPrefWidth() / 4);
-        profile.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Task, String>, ObservableValue<String>>() {
+        profile.setPrefWidth(treeTableView.getPrefWidth() / 4);
+        profile.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<TreeTableTask, String>, ObservableValue<String>>() {
             @Override
-            public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<Task, String> param) {
+            public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<TreeTableTask, String> param) {
                 return param.getValue().getValue().profile;
             }
         });
 
         this.item = new JFXTreeTableColumn<>("Item");
-        item.setPrefWidth(taskView.getPrefWidth() / 4);
-        item.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Task, String>, ObservableValue<String>>() {
+        item.setPrefWidth(treeTableView.getPrefWidth() / 4);
+        item.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<TreeTableTask, String>, ObservableValue<String>>() {
             @Override
-            public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<Task, String> param) {
+            public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<TreeTableTask, String> param) {
                 return param.getValue().getValue().item;
             }
         });
 
         this.status = new JFXTreeTableColumn<>("Status");
-        status.setPrefWidth(taskView.getPrefWidth() / 4);
-        status.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Task, String>, ObservableValue<String>>() {
+        status.setPrefWidth(treeTableView.getPrefWidth() / 4);
+        status.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<TreeTableTask, String>, ObservableValue<String>>() {
             @Override
-            public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<Task, String> param) {
+            public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<TreeTableTask, String> param) {
                 return param.getValue().getValue().status;
             }
         });
     }
 
     public void deselectRowEventListener() {
-        this.taskView.setRowFactory(new Callback<TreeTableView<Task>, TreeTableRow<Task>>() {
+        this.treeTableView.setRowFactory(new Callback<TreeTableView<TreeTableTask>, TreeTableRow<TreeTableTask>>() {
             @Override
-            public TreeTableRow<Task> call(TreeTableView<Task> tableView2) {
-                final TreeTableRow<Task> row = new TreeTableRow<>();
+            public TreeTableRow<TreeTableTask> call(TreeTableView<TreeTableTask> tableView2) {
+                final TreeTableRow<TreeTableTask> row = new TreeTableRow<>();
                 row.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
                         final int index = row.getIndex();
-                        if (index >= 0 && index < taskView.getRoot().getChildren().size() && taskView.getSelectionModel().isSelected(index)) {
-                            taskView.getSelectionModel().clearSelection();
+                        if (index >= 0 && index < treeTableView.getRoot().getChildren().size() && treeTableView.getSelectionModel().isSelected(index)) {
+                            treeTableView.getSelectionModel().clearSelection();
                             event.consume();
                         }
                     }

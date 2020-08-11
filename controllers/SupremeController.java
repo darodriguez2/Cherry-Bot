@@ -1,8 +1,13 @@
+/**
+ * Controller for working with Supreme Model. All calls must be routed through his controller.
+ * @author darod
+ */
+
 package controllers;
 import Models.SupremeModel;
 import org.json.JSONException;
 
-public class WebViewController {
+public class SupremeController {
     private final SupremeModel model = new SupremeModel();
     
     public boolean sendSearchItemRequest(String _itemKeyword, String _itemType) throws InterruptedException {

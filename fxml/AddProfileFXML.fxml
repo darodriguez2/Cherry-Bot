@@ -165,7 +165,7 @@
             <TextField fx:id="month" layoutX="127.0" layoutY="80.0" prefHeight="25.0" prefWidth="83.0" />
          </children>
       </AnchorPane>
-      <JFXButton buttonType="RAISED" layoutX="254.0" layoutY="481.0" onAction="#addProfile" prefHeight="30.0" prefWidth="83.0" ripplerFill="#ffa2a2" style="-fx-background-color: #404040;" text=" Add" textFill="#f8f8f8">
+      <JFXButton fx:id="addButton" buttonType="RAISED" layoutX="254.0" layoutY="481.0" onAction="#addProfile" prefHeight="30.0" prefWidth="83.0" ripplerFill="#ffa2a2" style="-fx-background-color: #404040;" text=" Add" textFill="#f8f8f8">
          <font>
             <Font name="Segoe UI Semibold" size="14.0" />
          </font>
