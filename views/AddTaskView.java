@@ -1,10 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * AddTaskView that corresponds with the addTask UI.
+ * @author darod
  */
 package views;
 
+import Utilities.TreeTableTask;
 import Utilities.TaskThread;
 import Utilities.ViewUtil;
 import com.jfoenix.controls.JFXTreeTableView;
@@ -23,7 +23,6 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import testing.UI.*;
 
 public class AddTaskView extends ViewUtil implements Initializable {
 
@@ -101,6 +100,7 @@ public class AddTaskView extends ViewUtil implements Initializable {
     public void addTask() {
         if (checkFields()) {
             String uuid = UUID.randomUUID().toString();
+            System.out.println("adding task UUID: " + uuid);
             TreeTableTask taskToAdd = new TreeTableTask(uuid, this.selectSite.getValue().toString(), this.selectProfile.getValue().toString(), this.itemKeyword.getText(), "Ready to start");
             TreeItem<TreeTableTask> addTask = new TreeItem<>(taskToAdd);
             this.tv.user.addTreeTableTask(addTask);

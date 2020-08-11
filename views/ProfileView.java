@@ -1,9 +1,16 @@
+/**
+ * ProfileView that corresponds with the profile UI.
+ * CONTROLLER: ProfileController
+ *
+ * @author darod
+ */
+
+
 package views;
 
 import Utilities.User;
 import Utilities.ViewUtil;
 import com.jfoenix.controls.JFXButton;
-import com.sun.prism.paint.Color;
 import controllers.ProfileController;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.IOException;
@@ -20,10 +27,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 
-/**
- *
- * @author darod
- */
 public class ProfileView extends ViewUtil implements Initializable {
 
     @FXML
@@ -74,7 +77,7 @@ public class ProfileView extends ViewUtil implements Initializable {
     //For performing operations on all textfields by looping through array.
     private TextField[] textFields;
 
-    private ProfileController pc = new ProfileController();
+    private final ProfileController pc = new ProfileController();
 
     @FXML
     public void closeApplication() {

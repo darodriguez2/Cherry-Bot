@@ -1,6 +1,6 @@
 /**
  * Model for encrypting data to be put into dynamo db
- *
+ * and decrypting data from dynamo db
  * @author darod
  */
 package Utilities;

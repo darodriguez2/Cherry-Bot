@@ -1,5 +1,5 @@
 /**
- * Adapter for handling all information going to and from the translator. 
+ * Adapter for handling all information going/coming to and from the database translator. 
  * @author darod
  */
 package Adapters;

@@ -1,7 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * AddProfileView that corresponds with the addTask UI.
+ * CONTROLLER: ProfileController
+ * @author darod
  */
 package views;
 
@@ -27,10 +27,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
-/**
- *
- * @author darod
- */
+
 public class AddProfileView extends ViewUtil implements Initializable {
 
     @FXML

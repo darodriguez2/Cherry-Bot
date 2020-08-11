@@ -1,18 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Class used to create TreeTableTask Objects that are put onto the tree table view. 
+ * @author darod
  */
-package testing.UI;
+package Utilities;
 
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.beans.property.SimpleStringProperty;
 
-/**
- *
- * @author diego
- */
+
 public class TreeTableTask extends RecursiveTreeObject<TreeTableTask>{
 
     public SimpleStringProperty site;

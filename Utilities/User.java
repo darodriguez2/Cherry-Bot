@@ -1,3 +1,9 @@
+/**
+ * User class used for creating user objects that hold information about the user
+ * that are used throughout the application.
+ * @author darod
+ */
+
 package Utilities;
 
 import java.util.HashMap;
@@ -5,7 +11,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import javafx.scene.control.TreeItem;
-import testing.UI.TreeTableTask;
 
 public class User {
 

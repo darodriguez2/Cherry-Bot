@@ -1,6 +1,6 @@
 /**
  * AWS DynamoDB translator for communicating with DynamoDB. Translates information coming to and from database.
- * This is the ONLY java class allowed to communicate with DynamoDB.
+ * This is the ONLY class allowed to communicate with DynamoDB.
  * All request MUST BE routed through adapter. Only the adapter communicates directly with this translator.
  *
  * @author Diego Rodriguez

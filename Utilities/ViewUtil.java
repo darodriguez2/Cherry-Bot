@@ -1,18 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * General utility class extended by all views.
+ * The purpose is to reduce redundant code by putting commonly used methods within this class.
+ * @author darod
  */
 package Utilities;
 
-import static com.sun.javafx.application.PlatformImpl.addListener;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -25,11 +21,8 @@ import javafx.stage.StageStyle;
 import views.AddProfileView;
 import views.ProfileView;
 import views.TaskView;
+import views.WebViewerView;
 
-/**
- *
- * @author darod
- */
 public class ViewUtil {
 
     private double xOffset = 0;
@@ -109,6 +102,22 @@ public class ViewUtil {
 
     public FXMLLoader openPopupWindow(String _fxml) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(_fxml));
+        Parent parent = loader.load();
+
+        Stage stage = new Stage();
+        stage.initStyle(StageStyle.TRANSPARENT);
+
+        makeStageMovable(parent, stage);
+
+        stage.setScene(new Scene(parent));
+        stage.show();
+
+        return loader;
+    }
+    
+    public FXMLLoader openWebView(String _fxml, WebViewerView _view) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(_fxml));
+        loader.setController(_view);
         Parent parent = loader.load();
 
         Stage stage = new Stage();

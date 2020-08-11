@@ -1,14 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Another layer of abstraction between the adapter and controller.
+ * Used to interpret results from adapter, before handing appropriate information to controller.
+ * @author darod
  */
 package Models;
 
 import Adapters.SupremeAdapter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
 import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONException;
