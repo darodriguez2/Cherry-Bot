@@ -19,6 +19,14 @@ Desktop application programmed in Java for buying items on Supreme New York webs
 ## Check it out!
 ### First you wanna create an account
 ![](DemoGifs/createAccountGIF.gif)
+### Next, add a payment profile (easy to add, edit, and delete)
+![](DemoGifs/createProfileGIF.gif)
+### Once you have some payment profiles set up, you can add tasks
+![](DemoGifs/createTaskGIF.gif)
+### Optionally for each task you can login to gmail and watch youtube videos to increase your chances of a 1-click captcha at check out
+![](DemoGifs/gmailYoutubeGIF.gif)
+### And of course this can be done with multiple tasks at a time
+![](DemoGifs/multiTaskGIF.gif)
 
-
+##Live drop demo coming soon
 
