@@ -7,15 +7,18 @@ Desktop application programmed in Java for buying items on Supreme New York webs
 
 ## Features
 * Supports user account creation and multiple payment profiles. All sensitive user information is securely stored in the cloud (AWS Dynamo DB) with end-to-end encryption methods.
-* Multi-threading capabilities: allows users to run multiple tasks on multiple items using multiple payment profiles.
+* Multi-threading capabilities: allows users to run multiple tasks on multiple items with their choice of payment profile for each task.
 * Users solve captchas during checkout.
 * Gmail sign in and youtube watching for better chance at 1 click captchas. 
-
-## Check it out!
-
 
 ## To Do
 * Proxy support
 * Pooky handling
 * "Safe" mode that uses catcha solving services to solve captchas. (More reliable for less hyped items).
+
+## Check it out!
+### First you wanna create an account
+![](DemoGifs/createAccountGIF.gif)
+
+
 
