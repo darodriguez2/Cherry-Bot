@@ -17,6 +17,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
@@ -141,12 +142,17 @@ public class AddProfileView extends ViewUtil implements Initializable {
     }
 
     public void addStatesToComboBox() throws FileNotFoundException, IOException {
-        File file = new File("C:\\Users\\darod\\Documents\\NetBeansProjects\\Cherry_V1\\src\\Artifacts\\fiftyStates.txt");
+        
+        String filePath = System.getProperty("user.dir") + "\\src\\Artifacts\\fiftyStates.txt\\";
+        File file = new File(filePath);
         BufferedReader br = new BufferedReader(new FileReader(file));
 
         String st;
         while ((st = br.readLine()) != null) {
             this.state.getItems().addAll(st);
         }
+
+        
+        
     }
 }
