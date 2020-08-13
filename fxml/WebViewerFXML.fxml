@@ -7,28 +7,28 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.web.WebView?>
 
-<AnchorPane id="AnchorPane" fx:id="mainAnchorPane" prefHeight="626.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" fx:id="mainAnchorPane" prefHeight="525.0" prefWidth="485.0" style="-fx-background-color: #500000;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane layoutX="-2.0" prefHeight="90.0" prefWidth="612.0" style="-fx-background-color: #404040;">
+      <AnchorPane prefHeight="90.0" prefWidth="514.0" style="-fx-background-color: #404040;">
          <children>
-            <Label layoutX="194.0" layoutY="26.0" text="Cherry Web View " textFill="WHITE">
-               <font>
-                  <Font name="Segoe UI Semibold" size="27.0" />
-               </font>
-            </Label>
-            <JFXButton contentDisplay="RIGHT" layoutX="448.0" layoutY="12.0" onAction="#closeWindow" prefHeight="70.0" prefWidth="164.0" style="-fx-background-color: #404040;" text="Exit" textFill="WHITE">
+            <JFXButton contentDisplay="RIGHT" layoutX="373.0" layoutY="11.0" onAction="#closeWindow" prefHeight="70.0" prefWidth="127.0" style="-fx-background-color: #404040;" text="close" textFill="WHITE">
                <font>
                   <Font name="Segoe UI Semibold" size="16.0" />
                </font>
                <graphic>
-                  <FontAwesomeIconView fill="#eeeeee" glyphName="TIMES" size="16" />
+                  <FontAwesomeIconView fill="#eeeeee" glyphName="TIMES" size="16" text="" />
                </graphic>
             </JFXButton>
+            <Label layoutX="148.0" layoutY="26.0" text="Cherry Web View " textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Semibold" size="27.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="-2.0" layoutY="90.0" prefHeight="536.0" prefWidth="612.0" style="-fx-background-color: #500000;">
+      <AnchorPane layoutX="-2.0" layoutY="90.0" prefHeight="435.0" prefWidth="514.0" style="-fx-background-color: #500000;">
          <children>
-            <WebView fx:id="webView" layoutX="83.0" layoutY="14.0" prefHeight="393.0" prefWidth="446.0" />
+            <WebView fx:id="webView" layoutX="34.0" layoutY="21.0" prefHeight="393.0" prefWidth="446.0" />
          </children>
       </AnchorPane>
    </children>

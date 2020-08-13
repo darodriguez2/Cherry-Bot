@@ -69,7 +69,6 @@ public class AddTaskView extends ViewUtil implements Initializable {
         //ONLY SUPREME IS SUPPORTED...FOR NOW. 6/14/2020
         this.selectSite.getItems().add("Supreme");
 
-        this.selectProfile.getItems().add(getProfiles());
         this.itemType.getItems().addAll("Clothing", "Accessory");
         this.size.getItems().addAll("small", "medium", "large");
 
@@ -77,15 +76,6 @@ public class AddTaskView extends ViewUtil implements Initializable {
         this.accessory.setVisible(false);
     }
 
-    /**
-     * Method for getting profiles from AWS. For now, we are hard coding a
-     * sample profile
-     *
-     * @return
-     */
-    public String getProfiles() {
-        return "profile x";
-    }
 
     public void itemTypeSelected() {
         if (this.itemType.getValue().equals("Clothing")) {

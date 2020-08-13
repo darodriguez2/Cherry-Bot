@@ -13,6 +13,11 @@ import com.amazonaws.services.dynamodbv2.document.Item;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.kms.AWSKMS;
 import com.amazonaws.services.kms.AWSKMSClientBuilder;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -20,15 +25,24 @@ import java.util.Map;
 import java.util.Set;
 
 public class DynamoEncryptionUtil {
-
+    
+    
+    
+    
     //maybe customer master key amazon resource name (cmkArn) shouldn't be hardcoded in program. 
     //Put in txt file later? (artifact?)
-    private final String cmkArn = "arn:aws:kms:us-east-2:544121387098:key/7ffdac13-5bc8-4887-a735-c6ed13dc170b";
+    private final String cmkArn;
     private final String region = "us-east-2";
     private final AWSKMS kms = AWSKMSClientBuilder.standard().withRegion(this.region).build();
-    private final DirectKmsMaterialProvider cmp = new DirectKmsMaterialProvider(kms, cmkArn);
-    final DynamoDBEncryptor encryptor = DynamoDBEncryptor.getInstance(cmp);
-
+    private final DirectKmsMaterialProvider cmp;
+    private final DynamoDBEncryptor encryptor;
+    
+    public DynamoEncryptionUtil() throws IOException {
+        System.out.println(getARN());
+        this.cmkArn = getARN();
+        this.cmp = new DirectKmsMaterialProvider(kms, cmkArn);
+        this.encryptor  = DynamoDBEncryptor.getInstance(cmp);
+    }
     /**
      * Method for encrypting a map of attributes to be put into table. If there
      * is no sort key(range key) in a table, pass string "0" as parameter.
@@ -137,5 +151,16 @@ public class DynamoEncryptionUtil {
         //Create and return the decrypted item as map. 
         final Map<String, AttributeValue> decryptedRecord = this.encryptor.decryptRecord(encryptedInfo, actions, encryptionContext);
         return decryptedRecord;
+    }
+    
+    public String getARN() throws FileNotFoundException, IOException {
+        String filePath = System.getProperty("user.dir") + "\\src\\Artifacts\\cmkArn.txt\\";
+        File file = new File(filePath);
+        BufferedReader br = new BufferedReader(new FileReader(file));
+
+        String st = br.readLine();
+        System.out.println(st);
+        return st;
+
     }
 }

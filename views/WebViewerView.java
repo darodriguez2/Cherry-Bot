@@ -8,6 +8,7 @@
  */
 package views;
 
+import Utilities.TaskThread;
 import Utilities.ViewUtil;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -27,6 +28,7 @@ public class WebViewerView extends ViewUtil implements Initializable {
 
     private WebEngine engine;
     private final String USERAGENT = "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1";
+    private TaskThread taskThread;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -55,7 +57,12 @@ public class WebViewerView extends ViewUtil implements Initializable {
     }
 
     public void closeWindow() {
+        this.taskThread.webViewClosed();
         this.closeWindow(this.mainAnchorPane);
+    }
+    
+    public void setTaskThread(TaskThread _taskThread) {
+        this.taskThread = _taskThread;
     }
 
 }
